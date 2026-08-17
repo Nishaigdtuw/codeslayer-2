@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    background-color: #0B0B0E;
+    color: #F8FAFC;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom Japanese Dark Anime Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0B0B0E;
+    border-left: 1px solid #1E1A29;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #E60033 0%, #8B0000 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(230, 0, 51, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF2A55;
+  }
+}
+
+@layer utilities {
+  .text-glow-crimson {
+    text-shadow: 0 0 15px rgba(230, 0, 51, 0.7), 0 0 30px rgba(255, 23, 68, 0.4);
+  }
+
+  .text-glow-white {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(230, 0, 51, 0.5);
+  }
+
+  .box-glow-crimson {
+    box-shadow: 0 0 25px -5px rgba(230, 0, 51, 0.5), inset 0 0 15px rgba(230, 0, 51, 0.2);
+  }
+
+  .border-glow-crimson {
+    border-color: rgba(230, 0, 51, 0.6);
+    box-shadow: 0 0 15px rgba(230, 0, 51, 0.4);
+  }
+
+  .bg-anime-glass {
+    background: rgba(18, 17, 24, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(230, 0, 51, 0.25);
+  }
+
+  .bg-anime-glass-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .bg-anime-glass-hover:hover {
+    background: rgba(26, 23, 36, 0.85);
+    border-color: rgba(255, 42, 85, 0.6);
+    box-shadow: 0 0 30px rgba(230, 0, 51, 0.35);
+  }
+}
+
+/* Diagonal Sword Slash Overlay animation */
+.sword-slash-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.sword-slash-container::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 45%,
+    rgba(255, 42, 85, 0.8) 50%,
+    transparent 55%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  pointer-events: none;
+  transition: transform 0.6s ease;
+}
+
+.sword-slash-container:hover::after {
+  transform: translateX(100%) rotate(25deg);
+}
+
+/* Katana Slash Divider Line */
+.katana-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #E60033 50%, transparent 100%);
+  position: relative;
+}
+
+.katana-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: #FF2A55;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #FF2A55;
+}
