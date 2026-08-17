@@ -14,7 +14,7 @@ export const CompactLegacySection = () => {
       
       {/* FULL-BLEED BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/backgrounds/yoriichi-sun.jpg"
+        imageSrc="/backgrounds/05_sakura_mountain_path.png"
         altText="Previous Edition Atmosphere"
         overlayOpacity={0.25}
       />

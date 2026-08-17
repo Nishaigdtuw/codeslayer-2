@@ -144,10 +144,10 @@ export const eventConfig = {
       { value: "65", label: "TEAMS SELECTED TO BATTLEFIELD" }
     ],
     gallery: [
-      { src: "/backgrounds/legacy-1.png", caption: "36 hours. Hundreds of builders.", timestamp: "CodeSlayer 1.0" },
-      { src: "/backgrounds/legacy-2.png", caption: "Ideas became working prototypes.", timestamp: "Grand Finale" },
-      { src: "/backgrounds/nit-delhi.png", caption: "The battlefield before sunrise.", timestamp: "NIT Delhi Arena" },
-      { src: "/backgrounds/swordsman.png", caption: "Flame Demon Slayer Spirit.", timestamp: "Visual Theme" }
+      { src: "/backgrounds/06_bright_campus_scene.png", caption: "36 hours. Hundreds of builders.", timestamp: "CodeSlayer 1.0" },
+      { src: "/backgrounds/12_sakura_castle_waterfall.png", caption: "Ideas became working prototypes.", timestamp: "Grand Finale" },
+      { src: "/backgrounds/06_bright_campus_scene.png", caption: "The battlefield before sunrise.", timestamp: "NIT Delhi Arena" },
+      { src: "/backgrounds/09_sunrise_cliff_samurai.png", caption: "Flame Demon Slayer Spirit.", timestamp: "Visual Theme" }
     ]
   },
   faqs: [
