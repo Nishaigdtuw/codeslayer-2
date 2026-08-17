@@ -9,28 +9,27 @@ export const SelectionTrial3D = () => {
   return (
     <section id="ppt-round" className="py-28 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED USER UPLOADED ZENITSU THUNDER BACKGROUND */}
+      {/* FULL-BLEED IMAGE 03: TORII CHERRY BLOSSOM BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/backgrounds/zenitsu-thunder.jpg"
-        altText="Selection Trial Atmosphere"
-        overlayOpacity={0.25}
+        imageSrc="/backgrounds/03_torii_cherry_blossom.png"
+        altText="Torii Cherry Blossom Selection Trial Atmosphere"
+        overlayOpacity={0.20}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/90 border-2 border-crimson-500/50 backdrop-blur-xl shadow-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-red-950/90 border border-yellow-400/50 rounded-full inline-block mb-4">
+        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-pink-500/50 backdrop-blur-xl shadow-2xl">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/90 border border-pink-400/50 rounded-full inline-block mb-4">
             ROUND 1 • ONLINE SELECTION TRIAL
           </span>
 
           <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight">
             SUBMIT YOUR PITCH. <br />
-            <span className="text-yellow-400 text-glow-white">UNLOCK THE BATTLEFIELD.</span>
+            <span className="text-pink-400 text-glow-white">UNLOCK THE BATTLEFIELD.</span>
           </h2>
 
-          {/* HIGH CONTRAST SUBTITLE requested by user */}
-          <p className="text-white text-base sm:text-xl font-bold mt-4 p-4 rounded-xl bg-crimson-950/80 border border-crimson-bright/40 shadow-md">
+          <p className="text-white text-base sm:text-xl font-bold mt-4 p-4 rounded-xl bg-pink-950/80 border border-pink-400/40 shadow-md">
             Only 65 teams will earn their ticket to the 36-hour battlefield at NIT Delhi.
           </p>
         </div>
@@ -44,7 +43,7 @@ export const SelectionTrial3D = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="p-8 rounded-3xl bg-black/90 border-2 border-crimson-500/60 shadow-2xl backdrop-blur-xl relative group text-left"
+            className="p-8 rounded-3xl bg-black/85 border-2 border-crimson-500/60 shadow-2xl backdrop-blur-xl relative group text-left"
           >
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 rounded-2xl bg-crimson-600/30 text-crimson-bright border border-crimson-bright/40">
@@ -82,7 +81,7 @@ export const SelectionTrial3D = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-8 rounded-3xl bg-black/90 border-2 border-yellow-400/60 shadow-2xl backdrop-blur-xl relative group text-left"
+            className="p-8 rounded-3xl bg-black/85 border-2 border-yellow-400/60 shadow-2xl backdrop-blur-xl relative group text-left"
           >
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 rounded-2xl bg-yellow-500/30 text-yellow-400 border border-yellow-400/40">
@@ -117,11 +116,11 @@ export const SelectionTrial3D = () => {
 
         </div>
 
-        {/* HIGH CONTRAST REQUIRED PPT SLIDE ARCHITECTURE PANEL requested by user */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-black/95 border-2 border-crimson-500/70 shadow-2xl backdrop-blur-2xl text-left">
+        {/* REQUIRED PPT SLIDE ARCHITECTURE PANEL */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-black/90 border-2 border-pink-500/60 shadow-2xl backdrop-blur-2xl text-left">
           
           <h3 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight mb-2 drop-shadow-md">
-            REQUIRED PPT SLIDE <span className="text-yellow-400">ARCHITECTURE</span>
+            REQUIRED PPT SLIDE <span className="text-pink-400">ARCHITECTURE</span>
           </h3>
           <p className="text-gray-200 text-sm sm:text-base font-medium mb-8">
             Your Round 1 presentation deck must clearly cover the following 6 pillars:
@@ -131,10 +130,10 @@ export const SelectionTrial3D = () => {
             {eventConfig.pptRequirements.map((req, idx) => (
               <div
                 key={req.title}
-                className="p-5 rounded-2xl bg-surface/90 border border-crimson-500/30 hover:border-yellow-400 transition-colors"
+                className="p-5 rounded-2xl bg-surface/90 border border-pink-500/30 hover:border-pink-400 transition-colors"
               >
-                <div className="flex items-center space-x-2 font-mono text-xs text-yellow-300 font-bold mb-2">
-                  <CheckCircle2 className="w-4 h-4 text-yellow-400" />
+                <div className="flex items-center space-x-2 font-mono text-xs text-pink-300 font-bold mb-2">
+                  <CheckCircle2 className="w-4 h-4 text-pink-400" />
                   <span>SLIDE 0{idx + 1}</span>
                 </div>
                 <h4 className="font-display font-bold text-base text-white mb-1">{req.title}</h4>

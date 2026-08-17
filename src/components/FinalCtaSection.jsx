@@ -9,11 +9,11 @@ export const FinalCtaSection = () => {
   return (
     <section className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#0B0B0E]">
       
-      {/* FULL-BLEED CRIMSON SUNRISE BACKGROUND */}
+      {/* FULL-BLEED IMAGE 09: SUNRISE CLIFF SAMURAI BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/backgrounds/zenitsu-thunder.jpg"
-        altText="Final CTA Crimson Sunrise Atmosphere"
-        overlayOpacity={0.25}
+        imageSrc="/backgrounds/09_sunrise_cliff_samurai.png"
+        altText="Sunrise Cliff Samurai Final CTA Atmosphere"
+        overlayOpacity={0.18}
       />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center py-12">
@@ -56,14 +56,14 @@ export const FinalCtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-xl mx-auto p-6 rounded-3xl bg-black/90 border-2 border-crimson-500/60 backdrop-blur-xl shadow-2xl space-y-3 mb-10 text-left"
+          className="max-w-xl mx-auto p-6 rounded-3xl bg-black/85 border-2 border-amber-500/60 backdrop-blur-xl shadow-2xl space-y-3 mb-10 text-left"
         >
           <div className="flex items-center space-x-3 text-white font-bold text-sm sm:text-base">
             <Calendar className="w-5 h-5 text-yellow-400 flex-shrink-0" />
             <span>24–25 October 2026 (36-Hour Offline Finale)</span>
           </div>
           <div className="flex items-center space-x-3 text-gray-200 font-medium text-xs sm:text-sm">
-            <MapPin className="w-5 h-5 text-crimson-bright flex-shrink-0" />
+            <MapPin className="w-5 h-5 text-amber-400 flex-shrink-0" />
             <span>National Institute of Technology (NIT) Delhi</span>
           </div>
         </motion.div>

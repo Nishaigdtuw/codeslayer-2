@@ -21,26 +21,26 @@ export const Tracks3DHub = () => {
   return (
     <section id="tracks" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED USER UPLOADED NEZUKO INK BACKGROUND */}
+      {/* FULL-BLEED IMAGE 04: FANTASY WATERFALL REALM BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/backgrounds/nezuko-ink.jpg"
-        altText="3D Breathing Realm Tracks Atmosphere"
-        overlayOpacity={0.25}
+        imageSrc="/backgrounds/04_fantasy_waterfall_realm.png"
+        altText="Fantasy Waterfall Realm Tracks Atmosphere"
+        overlayOpacity={0.20}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         
-        {/* Section Header IN HIGH CONTRAST PANEL requested by user */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/95 border-2 border-crimson-500/70 shadow-2xl backdrop-blur-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-red-950/90 border border-yellow-400/50 rounded-full inline-block mb-4">
-            REALM 03 • 3D GATEWAY PORTALS
+        {/* Section Header */}
+        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-cyan-500/60 shadow-2xl backdrop-blur-2xl">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-300 font-bold px-4 py-2 bg-cyan-950/90 border border-cyan-400/50 rounded-full inline-block mb-4">
+            REALM 03 • 3D SPATIAL GATEWAY PORTALS
           </span>
 
           <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-md">
-            CHOOSE YOUR <span className="text-crimson-bright text-glow-crimson">BREATHING REALM</span>
+            CHOOSE YOUR <span className="text-cyan-400 text-glow-white">BREATHING REALM</span>
           </h2>
 
-          <p className="text-yellow-300 text-sm sm:text-lg font-bold mt-4 p-3 rounded-xl bg-crimson-950/80 border border-crimson-bright/40 shadow-sm">
+          <p className="text-cyan-300 text-sm sm:text-lg font-bold mt-4 p-3 rounded-xl bg-cyan-950/80 border border-cyan-400/40 shadow-sm">
             Hover over each gateway portal to activate its elemental domain.
           </p>
         </div>
@@ -67,16 +67,16 @@ export const Tracks3DHub = () => {
                   soundEngine.playKatanaSlash();
                   setActiveTrack(track);
                 }}
-                whileHover={{ scale: 1.04, y: -6 }}
-                className={`p-8 rounded-3xl bg-black/95 border-2 ${
-                  isHovered ? 'border-yellow-400 shadow-[0_0_40px_rgba(234,179,8,0.7)]' : 'border-crimson-500/40 shadow-2xl'
+                whileHover={{ scale: 1.05, y: -8 }}
+                className={`p-8 rounded-3xl bg-black/85 border-2 ${
+                  isHovered ? 'border-cyan-400 shadow-[0_0_50px_rgba(6,182,212,0.8)]' : 'border-cyan-500/40 shadow-2xl'
                 } backdrop-blur-xl transition-all duration-300 cursor-pointer relative group text-left flex flex-col justify-between h-96 interactive-card`}
               >
                 {/* 3D Portal Gateway Ring */}
                 <div className="absolute top-6 right-6">
                   <div
                     className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
-                      isHovered ? 'border-yellow-400 bg-yellow-400/20 text-yellow-300 animate-spin-slow' : 'border-crimson-500/50 bg-crimson-950/50 text-crimson-bright'
+                      isHovered ? 'border-cyan-400 bg-cyan-400/20 text-cyan-300 animate-spin-slow' : 'border-cyan-500/50 bg-cyan-950/50 text-cyan-400'
                     } transition-all`}
                   >
                     <IconComponent className="w-7 h-7" />
@@ -84,13 +84,13 @@ export const Tracks3DHub = () => {
                 </div>
 
                 <div>
-                  <span className="font-mono text-xs text-yellow-300 font-bold uppercase tracking-widest block mb-2">
+                  <span className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-widest block mb-2">
                     {track.tag}
                   </span>
-                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white mb-1 group-hover:text-yellow-300 transition-colors drop-shadow-md">
+                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white mb-1 group-hover:text-cyan-300 transition-colors drop-shadow-md">
                     {track.title}
                   </h3>
-                  <p className="font-mono text-xs text-crimson-bright font-bold uppercase tracking-wider mb-4">
+                  <p className="font-mono text-xs text-cyan-400 font-bold uppercase tracking-wider mb-4">
                     {track.subtitle}
                   </p>
                   <p className="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed line-clamp-3">
@@ -102,7 +102,7 @@ export const Tracks3DHub = () => {
                   <span className="font-mono text-[10px] text-gray-300 font-bold uppercase tracking-wider">
                     {track.element}
                   </span>
-                  <div className="flex items-center space-x-1 text-xs font-black text-yellow-400 group-hover:translate-x-1 transition-transform">
+                  <div className="flex items-center space-x-1 text-xs font-black text-cyan-400 group-hover:translate-x-1 transition-transform">
                     <span>EXPLORE REALM</span>
                     <ChevronRight className="w-4 h-4" />
                   </div>
@@ -128,7 +128,7 @@ export const Tracks3DHub = () => {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="max-w-2xl w-full rounded-3xl bg-black border-2 border-yellow-400 shadow-2xl p-8 text-left relative"
+              className="max-w-2xl w-full rounded-3xl bg-black border-2 border-cyan-400 shadow-2xl p-8 text-left relative"
             >
               <button
                 onClick={() => setActiveTrack(null)}
@@ -137,13 +137,13 @@ export const Tracks3DHub = () => {
                 <X className="w-6 h-6" />
               </button>
 
-              <span className="font-mono text-xs text-yellow-300 font-bold uppercase tracking-widest block mb-2">
+              <span className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-widest block mb-2">
                 {activeTrack.tag}
               </span>
               <h3 className="font-display font-black text-3xl sm:text-5xl text-white mb-2">
                 {activeTrack.title}
               </h3>
-              <p className="font-mono text-sm text-crimson-bright font-bold uppercase tracking-wider mb-6">
+              <p className="font-mono text-sm text-cyan-400 font-bold uppercase tracking-wider mb-6">
                 {activeTrack.subtitle}
               </p>
 
@@ -151,7 +151,7 @@ export const Tracks3DHub = () => {
                 {activeTrack.description}
               </p>
 
-              <h4 className="font-mono text-xs text-yellow-400 font-bold uppercase tracking-widest mb-3">
+              <h4 className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-widest mb-3">
                 INSPIRATION PROJECT IDEAS
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
@@ -167,7 +167,7 @@ export const Tracks3DHub = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => soundEngine.playKatanaSlash()}
-                className="w-full py-4 rounded-xl font-black text-sm text-black bg-yellow-400 hover:bg-yellow-300 transition-all flex items-center justify-center uppercase tracking-wider shadow-lg"
+                className="w-full py-4 rounded-xl font-black text-sm text-black bg-cyan-400 hover:bg-cyan-300 transition-all flex items-center justify-center uppercase tracking-wider shadow-lg"
               >
                 BUILD IN THIS REALM
               </a>

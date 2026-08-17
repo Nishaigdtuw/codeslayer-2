@@ -2,17 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
 import { soundEngine } from '../utils/audio';
-import { Lock, Sparkles, ShieldCheck } from 'lucide-react';
+import { Lock, Sparkles } from 'lucide-react';
 
 export const PrizeRevealSection = () => {
   return (
     <section id="prizes" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED CEREMONIAL TEMPLE BACKGROUND */}
+      {/* FULL-BLEED IMAGE 07: SEALED SCROLL HALL BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/backgrounds/ceremonial-prizes-bg.png"
-        altText="Ceremonial Prize Atmosphere"
-        overlayOpacity={0.25}
+        imageSrc="/backgrounds/07_sealed_scroll_hall.png"
+        altText="Sealed Scroll Hall Prize Atmosphere"
+        overlayOpacity={0.20}
       />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
@@ -38,7 +38,7 @@ export const PrizeRevealSection = () => {
 
         {/* Heading */}
         <h2 className="font-display text-5xl sm:text-8xl font-black text-white tracking-tight leading-none mb-3 drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
-          PRIZE <span className="text-yellow-400 text-glow-white">POOL</span>
+          PRIZE <span className="text-yellow-400 text-glow-white">MONEY</span>
         </h2>
 
         <div className="font-display font-black text-2xl sm:text-4xl text-crimson-bright uppercase tracking-wider mb-6 drop-shadow-md">
@@ -46,7 +46,7 @@ export const PrizeRevealSection = () => {
         </div>
 
         {/* Supporting Copy */}
-        <div className="max-w-xl mx-auto p-6 rounded-3xl bg-black/90 border-2 border-yellow-400/50 backdrop-blur-xl shadow-2xl space-y-3">
+        <div className="max-w-xl mx-auto p-6 rounded-3xl bg-black/85 border-2 border-yellow-400/50 backdrop-blur-xl shadow-2xl space-y-3">
           <p className="text-yellow-300 font-mono text-sm sm:text-base font-bold tracking-widest uppercase">
             "THE REWARDS REMAIN SEALED. FOR NOW."
           </p>

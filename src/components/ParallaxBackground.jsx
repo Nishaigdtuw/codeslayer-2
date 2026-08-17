@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export const ParallaxBackground = ({ imageSrc, altText = "Atmosphere", overlayOpacity = 0.25 }) => {
+export const ParallaxBackground = ({ imageSrc, altText = 'Background Realm', overlayOpacity = 0.2 }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 15;
-      const y = (clientY / window.innerHeight - 0.5) * 15;
+      const { innerWidth: w, innerHeight: h } = window;
+      const x = (e.clientX / w - 0.5);
+      const y = (e.clientY / h - 0.5);
       setTilt({ x, y });
     };
 
@@ -17,26 +17,28 @@ export const ParallaxBackground = ({ imageSrc, altText = "Atmosphere", overlayOp
   }, []);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      {/* Parallax Image Layer */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+      {/* Background Layer (translate ±4px) */}
       <motion.div
-        animate={{
-          x: tilt.x,
-          y: tilt.y,
+        className="absolute -inset-10 bg-cover bg-center filter contrast-105 brightness-100"
+        style={{
+          backgroundImage: `url(${imageSrc})`,
+          transform: `scale(1.12) translate3d(${tilt.x * -4}px, ${tilt.y * -4}px, 0px)`,
         }}
-        transition={{ type: 'spring', stiffness: 150, damping: 25 }}
-        className="w-full h-full scale-110"
-      >
-        <img
-          src={imageSrc}
-          alt={altText}
-          className="w-full h-full object-cover filter contrast-125 brightness-90 transition-transform duration-700"
-        />
-      </motion.div>
+        transition={{ type: 'spring', stiffness: 120, damping: 25 }}
+      />
 
-      {/* Light Readability Overlay (Max 25%) */}
+      {/* Midground Parallax Layer (translate ±8px) */}
+      <motion.div
+        className="absolute inset-0 bg-radial-vignette opacity-30"
+        style={{
+          transform: `translate3d(${tilt.x * -8}px, ${tilt.y * -8}px, 0px)`,
+        }}
+      />
+
+      {/* Light Overlay (kept light 15-25% as requested) */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-[#0B0B0E]/70 via-transparent to-[#0B0B0E]/80"
+        className="absolute inset-0 bg-[#0B0B0E]"
         style={{ opacity: overlayOpacity }}
       />
     </div>

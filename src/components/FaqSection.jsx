@@ -16,23 +16,23 @@ export const FaqSection = () => {
   return (
     <section id="faq" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED MOONLIT COURTYARD BACKGROUND */}
+      {/* FULL-BLEED IMAGE 08: MOONLIT SAKURA COURTYARD BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/backgrounds/tanjiro-watercolor.jpg"
-        altText="FAQ Moonlit Courtyard Atmosphere"
-        overlayOpacity={0.25}
+        imageSrc="/backgrounds/08_moonlit_sakura_courtyard.png"
+        altText="Moonlit Sakura Courtyard FAQ Atmosphere"
+        overlayOpacity={0.20}
       />
 
       <div className="relative z-10 max-w-4xl mx-auto">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 p-8 rounded-3xl bg-black/95 border-2 border-crimson-500/70 shadow-2xl backdrop-blur-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-red-950/90 border border-yellow-400/50 rounded-full inline-block mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-pink-500/60 shadow-2xl backdrop-blur-2xl">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/90 border border-pink-400/50 rounded-full inline-block mb-4">
             SCENE 08 • FREQUENTLY ASKED QUESTIONS
           </span>
 
           <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight">
-            CLEAR YOUR <span className="text-yellow-400 text-glow-white">DOUBTS</span>
+            CLEAR YOUR <span className="text-pink-400 text-glow-white">DOUBTS</span>
           </h2>
           <p className="text-gray-200 text-sm sm:text-base font-bold mt-2">
             Everything you need to know about CodeSlayer 2.0
@@ -51,20 +51,20 @@ export const FaqSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="rounded-2xl bg-black/95 border-2 border-yellow-400/40 backdrop-blur-xl overflow-hidden shadow-2xl text-left"
+                className="rounded-2xl bg-black/85 border-2 border-pink-400/40 backdrop-blur-xl overflow-hidden shadow-2xl text-left"
               >
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-6 flex items-center justify-between text-left hover:bg-yellow-500/10 transition-colors"
+                  className="w-full p-6 flex items-center justify-between text-left hover:bg-pink-500/10 transition-colors"
                 >
                   <div className="flex items-center space-x-3 pr-4">
-                    <HelpCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                    <HelpCircle className="w-5 h-5 text-pink-400 flex-shrink-0" />
                     <span className="font-display font-bold text-base sm:text-lg text-white">
                       {faq.q}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-yellow-400 transition-transform duration-300 flex-shrink-0 ${
+                    className={`w-5 h-5 text-pink-400 transition-transform duration-300 flex-shrink-0 ${
                       isOpen ? 'transform rotate-180' : ''
                     }`}
                   />

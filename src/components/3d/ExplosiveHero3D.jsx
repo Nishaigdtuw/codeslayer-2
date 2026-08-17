@@ -55,12 +55,12 @@ export const ExplosiveHero3D = () => {
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden bg-[#0B0B0E] flex flex-col justify-between">
       
-      {/* FULL-BLEED USER UPLOADED HASHIRA PILLARS BACKGROUND (REVEALED AFTER SLASH) */}
+      {/* FULL-BLEED IMAGE 01: SUNRISE SAMURAI BACKGROUND */}
       {step >= 4 && (
         <ParallaxBackground
-          imageSrc="/backgrounds/hashira-pillars.jpg"
-          altText="Hashira Pillars Standing Together Atmosphere"
-          overlayOpacity={0.25}
+          imageSrc="/backgrounds/01_sunrise_samurai.png"
+          altText="Sunrise Samurai Hero Atmosphere"
+          overlayOpacity={0.18}
         />
       )}
 
@@ -214,7 +214,7 @@ export const ExplosiveHero3D = () => {
             # 24 — 25 OCTOBER 2026 • NIT DELHI
           </motion.p>
 
-          <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-black/90 border border-crimson-500/50 backdrop-blur-md">
+          <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-black/80 border border-crimson-500/50 backdrop-blur-md">
             <p className="text-white text-sm sm:text-base font-medium leading-relaxed drop-shadow-md">
               Online PPT Selection Trial followed by an intense 36-hour offline hackathon at National Institute of Technology Delhi.
             </p>
