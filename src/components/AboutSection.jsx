@@ -9,7 +9,7 @@ export const AboutSection = () => {
       
       {/* FULL-BLEED USER UPLOADED TANJIRO WATERCOLOR BACKGROUND (SLIDE 2) */}
       <ParallaxBackground
-        imageSrc="/assets/tanjiro-watercolor.jpg"
+        imageSrc="/backgrounds/tanjiro-watercolor.jpg"
         altText="Tanjiro Watercolor Red Sun Atmosphere"
         overlayOpacity={0.25}
       />

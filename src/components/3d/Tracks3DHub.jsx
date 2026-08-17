@@ -23,7 +23,7 @@ export const Tracks3DHub = () => {
       
       {/* FULL-BLEED USER UPLOADED NEZUKO INK BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/assets/nezuko-ink.jpg"
+        imageSrc="/backgrounds/nezuko-ink.jpg"
         altText="3D Breathing Realm Tracks Atmosphere"
         overlayOpacity={0.25}
       />

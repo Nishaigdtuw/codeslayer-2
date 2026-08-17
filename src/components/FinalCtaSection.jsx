@@ -11,7 +11,7 @@ export const FinalCtaSection = () => {
       
       {/* FULL-BLEED CRIMSON SUNRISE BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/assets/zenitsu-thunder.jpg"
+        imageSrc="/backgrounds/zenitsu-thunder.jpg"
         altText="Final CTA Crimson Sunrise Atmosphere"
         overlayOpacity={0.25}
       />

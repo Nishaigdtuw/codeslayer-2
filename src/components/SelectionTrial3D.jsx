@@ -11,7 +11,7 @@ export const SelectionTrial3D = () => {
       
       {/* FULL-BLEED USER UPLOADED ZENITSU THUNDER BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/assets/zenitsu-thunder.jpg"
+        imageSrc="/backgrounds/zenitsu-thunder.jpg"
         altText="Selection Trial Atmosphere"
         overlayOpacity={0.25}
       />

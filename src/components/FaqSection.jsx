@@ -18,7 +18,7 @@ export const FaqSection = () => {
       
       {/* FULL-BLEED MOONLIT COURTYARD BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/assets/tanjiro-watercolor.jpg"
+        imageSrc="/backgrounds/tanjiro-watercolor.jpg"
         altText="FAQ Moonlit Courtyard Atmosphere"
         overlayOpacity={0.25}
       />

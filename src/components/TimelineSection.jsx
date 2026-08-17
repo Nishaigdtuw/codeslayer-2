@@ -10,7 +10,7 @@ export const TimelineSection = () => {
       
       {/* FULL-BLEED SUNSET MOUNTAIN ROAD BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/assets/yoriichi-sun.jpg"
+        imageSrc="/backgrounds/yoriichi-sun.jpg"
         altText="Timeline Journey Atmosphere"
         overlayOpacity={0.25}
       />

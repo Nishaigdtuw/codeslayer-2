@@ -58,7 +58,7 @@ export const ExplosiveHero3D = () => {
       {/* FULL-BLEED USER UPLOADED HASHIRA PILLARS BACKGROUND (REVEALED AFTER SLASH) */}
       {step >= 4 && (
         <ParallaxBackground
-          imageSrc="/assets/hashira-pillars.jpg"
+          imageSrc="/backgrounds/hashira-pillars.jpg"
           altText="Hashira Pillars Standing Together Atmosphere"
           overlayOpacity={0.25}
         />

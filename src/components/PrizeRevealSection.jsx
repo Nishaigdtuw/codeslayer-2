@@ -10,7 +10,7 @@ export const PrizeRevealSection = () => {
       
       {/* FULL-BLEED CEREMONIAL TEMPLE BACKGROUND */}
       <ParallaxBackground
-        imageSrc="/assets/ceremonial-prizes-bg.png"
+        imageSrc="/backgrounds/ceremonial-prizes-bg.png"
         altText="Ceremonial Prize Atmosphere"
         overlayOpacity={0.25}
       />
