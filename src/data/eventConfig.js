@@ -103,7 +103,7 @@ export const eventConfig = {
       icon: "Zap",
       color: "from-indigo-600 to-crimson-950",
       ideas: ["EdTech Collaborative Platforms", "FinTech Accessibility Tools", "Cybersecurity Shielding", "AR/VR Immersive Tools"],
-      tag: "Wildcard Realm",
+      tag: "Wildcard Track",
       element: "Rainbow Void Prism"
     }
   ],

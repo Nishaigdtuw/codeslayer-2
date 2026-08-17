@@ -34,11 +34,11 @@ export const Tracks3DHub = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-16 p-6 rounded-xl bg-black/15 border border-cyan-400/30 backdrop-blur-sm shadow-2xl">
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-300 font-bold px-4 py-1.5 bg-cyan-950/60 border border-cyan-400/40 rounded-full inline-block mb-4">
-            REALM 03 • 3D SPATIAL GATEWAY PORTALS
+            TRACKS 03 • 3D SPATIAL GATEWAY PORTALS
           </span>
 
           <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
-            CHOOSE YOUR <span className="text-cyan-400 text-glow-white">BREATHING REALM</span>
+            CHOOSE YOUR <span className="text-cyan-400 text-glow-white">BREATHING TRACK</span>
           </h2>
 
           <p className="text-cyan-300 text-sm sm:text-lg font-bold mt-4 p-2 rounded-lg bg-cyan-950/50 border border-cyan-400/30 shadow-sm drop-shadow-md">
@@ -104,7 +104,7 @@ export const Tracks3DHub = () => {
                     {track.element}
                   </span>
                   <div className="flex items-center space-x-1 text-xs font-black text-cyan-400 group-hover:translate-x-1 transition-transform">
-                    <span>EXPLORE REALM</span>
+                    <span>EXPLORE TRACK</span>
                     <ChevronRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export const Tracks3DHub = () => {
                 onClick={() => soundEngine.playKatanaSlash()}
                 className="w-full py-4 rounded-lg font-black text-sm text-black bg-cyan-400 hover:bg-cyan-300 transition-all flex items-center justify-center uppercase tracking-wider shadow-lg"
               >
-                BUILD IN THIS REALM
+                BUILD IN THIS TRACK
               </a>
             </motion.div>
           </motion.div>

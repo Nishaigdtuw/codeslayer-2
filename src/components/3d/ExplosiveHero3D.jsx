@@ -254,7 +254,7 @@ export const ExplosiveHero3D = () => {
                 className="px-8 py-4 rounded-xl font-bold text-sm text-white bg-black/40 border border-yellow-400/60 hover:border-yellow-400 transition-all flex items-center space-x-2 uppercase tracking-wider shadow-lg backdrop-blur-sm hover:scale-105"
               >
                 <Compass className="w-5 h-5 text-yellow-400" />
-                <span>EXPLORE REALMS</span>
+                <span>EXPLORE TRACKS</span>
               </a>
             </motion.div>
 
