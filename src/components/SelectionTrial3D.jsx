@@ -1,173 +1,117 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Sparkles, MeshReflectorMaterial } from '@react-three/drei';
+import { Float, Sparkles } from '@react-three/drei';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import * as THREE from 'three';
 import { SectionBackground } from './SectionBackground';
 import { backgrounds } from '../data/backgrounds';
 
-// 3D Suspended Katana Blade Component
-const Suspended3DKatana = ({ pointerX, pointerY }) => {
-  const bladeRef = useRef();
+// 3D Floating Katana for Camera Pass-By Effect
+const CameraPassBy3DKatana = ({ pointerX, pointerY }) => {
+  const katanaGroupRef = useRef();
 
   useFrame((state, delta) => {
-    if (bladeRef.current) {
-      bladeRef.current.rotation.y += delta * 0.4;
-      bladeRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.8) * 0.05 - 0.2;
-      bladeRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.5) * 0.15;
+    if (katanaGroupRef.current) {
+      // Gentle floating rotation
+      katanaGroupRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.7) * 0.12 - 0.35;
+      katanaGroupRef.current.rotation.y += delta * 0.3;
+      katanaGroupRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.2) * 0.18;
       
-      // Pointer interactive tilt
-      bladeRef.current.rotation.x = pointerY * 0.2;
+      // Mouse tilt interactivity
+      katanaGroupRef.current.rotation.x = pointerY * 0.25;
     }
   });
 
   return (
-    <group ref={bladeRef} position={[0, 0.2, 0]} scale={[1.2, 1.2, 1.2]}>
-      {/* Katana Blade Metallic Geometry */}
+    <group ref={katanaGroupRef} position={[0, 0, 1.2]} scale={[1.15, 1.15, 1.15]}>
+      {/* 3D Katana Blade Metallic Geometry */}
       <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
-        <boxGeometry args={[4.2, 0.08, 0.02]} />
+        <boxGeometry args={[4.4, 0.09, 0.02]} />
         <meshStandardMaterial
-          color="#E0E0E0"
+          color="#E8E8E8"
           metalness={0.95}
           roughness={0.15}
           envMapIntensity={2.5}
         />
       </mesh>
 
-      {/* Katana Edge Glow Highlight */}
-      <mesh position={[0, 0.04, 0.001]} rotation={[0, 0, Math.PI / 4]}>
-        <boxGeometry args={[4.22, 0.02, 0.025]} />
+      {/* Gold Edge Highlight */}
+      <mesh position={[0, 0.045, 0.001]} rotation={[0, 0, Math.PI / 4]}>
+        <boxGeometry args={[4.42, 0.025, 0.025]} />
         <meshBasicMaterial color="#FFD700" />
       </mesh>
 
       {/* Tsuba (Handguard) */}
-      <mesh position={[-1.2, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-        <cylinderGeometry args={[0.25, 0.25, 0.04, 16]} />
-        <meshStandardMaterial color="#B8860B" metalness={0.9} roughness={0.3} />
+      <mesh position={[-1.25, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+        <cylinderGeometry args={[0.26, 0.26, 0.04, 16]} />
+        <meshStandardMaterial color="#8F2F26" metalness={0.8} roughness={0.3} />
       </mesh>
 
       {/* Tsuka (Handle) */}
-      <mesh position={[-1.8, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
-        <cylinderGeometry args={[0.09, 0.09, 1.1, 12]} />
-        <meshStandardMaterial color="#8B0000" roughness={0.6} />
+      <mesh position={[-1.85, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
+        <cylinderGeometry args={[0.095, 0.095, 1.15, 12]} />
+        <meshStandardMaterial color="#641F1A" roughness={0.6} />
       </mesh>
     </group>
   );
 };
 
-// 3D Ceremonial Monolith / Scroll for Round 01
-const Round01Monolith = () => {
-  const meshRef = useRef();
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.6) * 0.08 - 0.2;
-      meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.2) * 0.1 - 0.2;
-    }
-  });
+// Spiraling Vertical Sakura Vortex Particles
+const VerticalSakuraVortex = () => {
+  const petals = Array.from({ length: 22 }, (_, i) => ({
+    id: i,
+    left: `${15 + Math.random() * 70}%`,
+    delay: Math.random() * 5,
+    duration: 6 + Math.random() * 6,
+    scale: 0.5 + Math.random() * 0.7,
+  }));
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.4}>
-      <group ref={meshRef} position={[-3.2, 0.2, 0.5]} scale={[0.9, 0.9, 0.9]}>
-        {/* Ancient Stone / Parchment Slab */}
-        <mesh castShadow receiveShadow>
-          <boxGeometry args={[2.2, 3.4, 0.15]} />
-          <meshStandardMaterial
-            color="#2A2421"
-            roughness={0.7}
-            metalness={0.2}
-          />
-        </mesh>
-
-        {/* Embossed Crimson Border Accent */}
-        <mesh position={[0, 0, 0.08]}>
-          <boxGeometry args={[2.05, 3.25, 0.02]} />
-          <meshStandardMaterial color="#8B0000" roughness={0.5} />
-        </mesh>
-      </group>
-    </Float>
+    <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+      {petals.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ y: '-10%', x: 0, rotate: 0, opacity: 0 }}
+          animate={{
+            y: '120vh',
+            x: [0, 45, -30, 40],
+            rotate: [0, 240, 480],
+            opacity: [0, 0.9, 0.9, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: 'linear',
+          }}
+          style={{ left: p.left, scale: p.scale }}
+          className="absolute w-4 h-5 bg-gradient-to-br from-rose-300 via-pink-400 to-rose-600 rounded-full opacity-80 filter blur-[0.3px] shadow-[0_0_10px_rgba(225,29,72,0.6)]"
+        />
+      ))}
+    </div>
   );
 };
 
-// 3D Illuminated Shrine Gate Monument for Round 02
-const Round02Monument = () => {
-  const groupRef = useRef();
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.06 + 0.15;
-    }
-  });
-
-  return (
-    <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.3}>
-      <group ref={groupRef} position={[3.2, -0.1, -0.5]} scale={[1.1, 1.1, 1.1]}>
-        {/* Torii Gate Columns */}
-        <mesh position={[-1.2, 0, 0]}>
-          <cylinderGeometry args={[0.12, 0.15, 3.8, 16]} />
-          <meshStandardMaterial color="#B22222" roughness={0.4} />
-        </mesh>
-
-        <mesh position={[1.2, 0, 0]}>
-          <cylinderGeometry args={[0.12, 0.15, 3.8, 16]} />
-          <meshStandardMaterial color="#B22222" roughness={0.4} />
-        </mesh>
-
-        {/* Top Crossbar */}
-        <mesh position={[0, 1.8, 0]}>
-          <boxGeometry args={[3.2, 0.25, 0.25]} />
-          <meshStandardMaterial color="#1A1A1A" roughness={0.3} />
-        </mesh>
-
-        {/* Gold Emblem Center */}
-        <mesh position={[0, 1.3, 0.1]}>
-          <cylinderGeometry args={[0.3, 0.3, 0.05, 24]} rotation={[Math.PI / 2, 0, 0]} />
-          <meshStandardMaterial color="#FFD700" metalness={0.9} roughness={0.2} />
-        </mesh>
-      </group>
-    </Float>
-  );
-};
-
-// Main Scene WebGL Canvas Component
-const SwordChamber3DScene = ({ mouseXVal, mouseYVal }) => {
+// WebGL Scene Container
+const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 6.5], fov: 45 }}
-      className="absolute inset-0 w-full h-full pointer-events-none z-1"
+      camera={{ position: [0, 0, 6.2], fov: 45 }}
+      className="absolute inset-0 w-full h-full pointer-events-none z-2"
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[5, 8, 5]} intensity={1.8} color="#FFF8E7" castShadow />
-      <pointLight position={[-4, 2, 3]} intensity={1.2} color="#FF2A55" />
-      <pointLight position={[4, -1, 2]} intensity={1.5} color="#FFD700" />
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[4, 7, 5]} intensity={2.0} color="#FFF5E0" />
+      <pointLight position={[-3, 2, 3]} intensity={1.5} color="#8F2F26" />
+      <pointLight position={[3, -2, 3]} intensity={1.8} color="#FFD700" />
 
-      {/* 3D Chamber Objects */}
-      <Round01Monolith />
-      <Suspended3DKatana pointerX={mouseXVal} pointerY={mouseYVal} />
-      <Round02Monument />
+      {/* Floating Katana Pass-By Object */}
+      <Float speed={1.4} rotationIntensity={0.2} floatIntensity={0.3}>
+        <CameraPassBy3DKatana pointerX={mouseXVal} pointerY={mouseYVal} />
+      </Float>
 
-      {/* Gold & Crimson Floating Particles */}
-      <Sparkles count={45} scale={8} size={2.5} speed={0.4} color="#FFD700" opacity={0.7} />
-      <Sparkles count={30} scale={10} size={2} speed={0.6} color="#FF2A55" opacity={0.6} />
-
-      {/* Reflective Ground Floor */}
-      <mesh position={[0, -2.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[20, 20]} />
-        <MeshReflectorMaterial
-          blur={[300, 100]}
-          resolution={512}
-          mirror={0.4}
-          mixBlur={0.8}
-          mixStrength={1.5}
-          roughness={0.6}
-          depthScale={1.2}
-          minDepthThreshold={0.4}
-          maxDepthThreshold={1.4}
-          color="#151012"
-          metalness={0.5}
-        />
-      </mesh>
+      {/* Sparkles */}
+      <Sparkles count={40} scale={9} size={2.5} speed={0.4} color="#FFD700" opacity={0.65} />
+      <Sparkles count={30} scale={11} size={2.0} speed={0.5} color="#641F1A" opacity={0.55} />
     </Canvas>
   );
 };
@@ -175,12 +119,12 @@ const SwordChamber3DScene = ({ mouseXVal, mouseYVal }) => {
 export const SelectionTrial3D = () => {
   const containerRef = useRef(null);
 
-  // Mouse Parallax Values for 2.5D Depth
+  // Mouse Pointer Parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -196,142 +140,139 @@ export const SelectionTrial3D = () => {
       id="ppt-round"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[90vh] sm:min-h-screen py-12 sm:py-16 px-4 sm:px-8 overflow-hidden flex flex-col justify-center select-none"
+      className="relative min-h-[115vh] sm:min-h-[125vh] py-16 sm:py-20 px-4 sm:px-8 overflow-hidden flex flex-col justify-between select-none"
     >
-      {/* 1. BACKGROUND ARTWORK (Custom User Katana Torii Image) */}
+      {/* 1. APPROVED BACKGROUND ARTWORK (Custom User Katana Torii Image) */}
       <SectionBackground
         src={backgrounds.trial}
-        alt="Katana Torii Chamber Background"
-        overlayOpacity={0.08}
+        alt="Katana Torii Custom Environment"
+        overlayOpacity={0.06}
       />
 
-      {/* Atmospheric Vignette Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/50 pointer-events-none z-0" />
+      {/* Soft Local Readability Vignettes (Deep Charcoal/Burgundy Contrast) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/20 via-transparent to-amber-900/30 pointer-events-none z-0" />
 
-      {/* 2. REAL 3D THREE.JS WEBGL CHAMBER SCENE */}
-      <SwordChamber3DScene mouseXVal={mouseX.get()} mouseYVal={mouseY.get()} />
+      {/* Vertical Sakura Vortex */}
+      <VerticalSakuraVortex />
 
-      {/* 3. ENGRAVED EDITORIAL TYPOGRAPHY COMPOSITION (NO UI CARDS) */}
+      {/* 2. WebGL 3D Katana Pass-By Scene */}
+      <Vertical3DScene mouseXVal={mouseX.get()} mouseYVal={mouseY.get()} />
+
+      {/* 3. VERTICAL 3D EDITORIAL POSTER LAYOUT (NO CARDS, NO BOXES) */}
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative z-10 max-w-7xl mx-auto w-full my-auto"
+        className="relative z-10 max-w-5xl mx-auto w-full my-auto flex flex-col justify-between space-y-16 sm:space-y-24"
       >
-        {/* TOP EDITORIAL SECTION HEADER */}
+        
+        {/* ==================================================
+            MOMENT 1: ROUND 01 — TOP EDITORIAL COMPOSITION (TOP 40%)
+        ================================================== */}
         <motion.div
-          initial={{ opacity: 0, y: -15 }}
+          initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-left mb-6"
+          transition={{ duration: 0.8 }}
+          className="relative text-left max-w-2xl"
         >
-          <div className="katana-divider mb-4" />
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-3.5 py-1 bg-black/40 border border-pink-400/40 rounded-full backdrop-blur-sm shadow-md">
-            SWORD SEAL CHAMBER • RITUAL OF SELECTION & FINALE
+          {/* DIMENSIONAL CARVED 3D NUMERAL: 01 */}
+          <span className="absolute -top-16 -left-6 font-display font-black text-[11rem] sm:text-[17rem] text-[#641F1A]/15 pointer-events-none select-none z-0 tracking-tighter">
+            01
           </span>
+
+          <div className="relative z-10 space-y-3">
+            {/* EDITORIAL HEADER MARKER */}
+            <div className="flex items-center space-x-2 font-mono text-xs text-[#8F2F26] font-bold tracking-widest uppercase">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#8F2F26] animate-pulse" />
+              <span>ROUND 01 • STAGE ONE</span>
+            </div>
+
+            {/* MAIN TITLE — DEEP CHARCOAL & BURGUNDY HIGH READABILITY */}
+            <h3 className="font-display font-black text-4xl sm:text-7xl text-[#2A1814] tracking-tight leading-none drop-shadow-[0_2px_12px_rgba(255,255,255,0.8)]">
+              PPT <br />
+              <span className="text-[#641F1A]">SUBMISSION</span>
+            </h3>
+
+            {/* DEADLINE COMPOSITION */}
+            <div className="pt-4 border-t border-[#8F2F26]/30 flex items-center space-x-5">
+              <div className="font-display font-black text-5xl sm:text-7xl text-[#8F2F26] tracking-tighter drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)]">
+                10
+              </div>
+
+              <div className="flex flex-col font-mono text-xs sm:text-sm font-black tracking-widest uppercase leading-none text-left">
+                <span className="text-[#8F2F26]">DEADLINE</span>
+                <span className="text-[#2A1814] text-base sm:text-xl font-extrabold mt-1">OCTOBER 2026</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
-        {/* SPATIAL 3D ENGRAVED LAYOUT (ROUND 01 LEFT, KATANA CENTER, ROUND 02 RIGHT) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[500px]">
-          
-          {/* ==================================================
-              ROUND 01 — FLOATING MONOLITH / SEAL (LEFT)
-          ================================================== */}
-          <motion.div
-            initial={{ opacity: 0, x: -40, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="md:col-span-5 text-left relative py-4"
-          >
-            {/* ENGRAVED WATERMARK: 01 */}
-            <span className="absolute -top-16 -left-8 font-display font-black text-[10rem] sm:text-[15rem] text-pink-400/15 pointer-events-none select-none z-0">
-              01
-            </span>
-
-            <div className="relative z-10 space-y-4">
-              <div className="flex items-center space-x-2 font-mono text-xs text-pink-300 font-bold tracking-widest uppercase">
-                <span className="w-2.5 h-2.5 rounded-full bg-crimson-bright animate-ping" />
-                <span>ROUND 01 • SACRED SEAL</span>
-              </div>
-
-              <h3 className="font-display font-black text-4xl sm:text-7xl text-white tracking-tight leading-none drop-shadow-[0_8px_24px_rgba(0,0,0,1)]">
-                PPT <br />
-                <span className="text-pink-400 text-glow-white">SUBMISSION</span>
-              </h3>
-
-              <div className="pt-6 border-t border-pink-500/30 flex items-center space-x-5">
-                <div className="font-display font-black text-6xl sm:text-8xl text-yellow-300 tracking-tighter drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-                  10
-                </div>
-
-                <div className="flex flex-col font-mono text-xs sm:text-sm font-black tracking-widest uppercase leading-none text-left">
-                  <span className="text-pink-300 font-bold">DEADLINE</span>
-                  <span className="text-white text-base sm:text-xl font-extrabold mt-1.5">OCTOBER 2026</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* SPATIAL CENTER SPACE FOR SUSPENDED KATANA BLADE */}
-          <div className="hidden md:block md:col-span-2 text-center relative pointer-events-none">
-            <div className="w-px h-32 bg-gradient-to-b from-transparent via-yellow-400/50 to-transparent mx-auto" />
-          </div>
-
-          {/* ==================================================
-              ROUND 02 — ILLUMINATED MONUMENT / SHRINE (RIGHT)
-          ================================================== */}
-          <motion.div
-            initial={{ opacity: 0, x: 40, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="md:col-span-5 text-left relative py-4 md:mt-12"
-          >
-            {/* ENGRAVED WATERMARK: 02 */}
-            <span className="absolute -top-16 -left-8 font-display font-black text-[10rem] sm:text-[15rem] text-yellow-400/15 pointer-events-none select-none z-0">
-              02
-            </span>
-
-            <div className="relative z-10 space-y-4">
-              <div className="flex items-center space-x-2 font-mono text-xs text-yellow-300 font-bold tracking-widest uppercase">
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_10px_#FFD700]" />
-                <span>ROUND 02 • THE ARRIVAL</span>
-              </div>
-
-              <h3 className="font-display font-black text-4xl sm:text-7xl text-white tracking-tight leading-none drop-shadow-[0_8px_24px_rgba(0,0,0,1)]">
-                GRAND <br />
-                <span className="text-yellow-400 text-glow-white">FINALE</span>
-              </h3>
-
-              <div className="space-y-4 pt-6 border-t border-yellow-500/40">
-                <div className="flex items-center space-x-4">
-                  <div className="font-display font-black text-5xl sm:text-7xl text-yellow-300 tracking-tighter drop-shadow-[0_4px_16px_rgba(0,0,0,1)] flex items-center">
-                    <span>24</span>
-                    <span className="text-crimson-bright mx-1.5 sm:mx-2 font-mono text-3xl sm:text-5xl">—</span>
-                    <span>25</span>
-                  </div>
-
-                  <div className="flex flex-col font-mono text-xs sm:text-sm font-black tracking-widest uppercase leading-none text-left">
-                    <span className="text-yellow-400 font-bold">OCTOBER</span>
-                    <span className="text-gray-200 mt-1.5">2026</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-bold text-gray-100 pt-1">
-                  <div className="flex items-center space-x-1.5 px-3.5 py-1 bg-yellow-500/20 border border-yellow-400/50 rounded text-yellow-300 shadow-md">
-                    <span>📍 NIT DELHI</span>
-                  </div>
-
-                  <div className="flex items-center space-x-1.5 px-3.5 py-1 bg-crimson-600/30 border border-crimson-bright/50 rounded text-crimson-bright shadow-md">
-                    <span>⚡ 36 HOURS</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </motion.div>
-
+        {/* ==================================================
+            MOMENT 2: CENTER SPATIAL TRANSITION / KATANA VORTEX PASS
+        ================================================== */}
+        <div className="relative py-4 text-center pointer-events-none">
+          <div className="w-px h-24 bg-gradient-to-b from-[#8F2F26]/40 via-[#FFD700] to-[#641F1A]/40 mx-auto" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#641F1A] font-extrabold block mt-2">
+            DESCENT TO FINALE
+          </span>
         </div>
+
+        {/* ==================================================
+            MOMENT 3: ROUND 02 — LOWER FINALE ARRIVAL (LOWER 45%)
+        ================================================== */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative text-right max-w-2xl ml-auto"
+        >
+          {/* DIMENSIONAL GOLD/BURGUNDY 3D NUMERAL: 02 */}
+          <span className="absolute -top-16 -right-6 font-display font-black text-[11rem] sm:text-[17rem] text-[#8F2F26]/15 pointer-events-none select-none z-0 tracking-tighter">
+            02
+          </span>
+
+          <div className="relative z-10 space-y-3">
+            {/* EDITORIAL HEADER MARKER */}
+            <div className="flex items-center justify-end space-x-2 font-mono text-xs text-[#8F2F26] font-bold tracking-widest uppercase">
+              <span>ROUND 02 • THE DESTINATION</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFD700] shadow-[0_0_10px_#FFD700]" />
+            </div>
+
+            {/* MAIN TITLE — HERO GRAND FINALE */}
+            <h3 className="font-display font-black text-4xl sm:text-7xl text-[#2A1814] tracking-tight leading-none drop-shadow-[0_2px_12px_rgba(255,255,255,0.8)]">
+              GRAND <br />
+              <span className="text-[#641F1A]">FINALE</span>
+            </h3>
+
+            {/* POSTER DATE COMPOSITION: 24 — 25 */}
+            <div className="space-y-4 pt-4 border-t border-[#8F2F26]/30 flex flex-col items-end">
+              <div className="flex items-center space-x-4">
+                <div className="font-display font-black text-5xl sm:text-7xl text-[#8F2F26] tracking-tighter drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)] flex items-center">
+                  <span>24</span>
+                  <span className="text-[#641F1A] mx-2 font-mono text-3xl sm:text-5xl">—</span>
+                  <span>25</span>
+                </div>
+
+                <div className="flex flex-col font-mono text-xs sm:text-sm font-black tracking-widest uppercase leading-none text-right">
+                  <span className="text-[#8F2F26]">OCTOBER</span>
+                  <span className="text-[#2A1814] mt-1">2026</span>
+                </div>
+              </div>
+
+              {/* DESTINATION LOCATION STAMP & DURATION */}
+              <div className="flex flex-wrap items-center justify-end gap-3 text-xs font-mono font-bold pt-1">
+                <div className="px-3.5 py-1 bg-[#641F1A]/10 border border-[#641F1A]/40 rounded text-[#641F1A] font-black shadow-sm">
+                  <span>📍 NIT DELHI</span>
+                </div>
+
+                <div className="px-3.5 py-1 bg-[#8F2F26]/10 border border-[#8F2F26]/40 rounded text-[#8F2F26] font-black shadow-sm">
+                  <span>⚡ 36 HOURS</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
 
       </motion.div>
     </section>
