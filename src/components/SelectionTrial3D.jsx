@@ -5,24 +5,23 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SectionBackground } from './SectionBackground';
 import { backgrounds } from '../data/backgrounds';
 
-// 3D Floating Katana for Camera Pass-By Effect
+// 3D Floating Katana for Center Diagonal Stage Overlap
 const CameraPassBy3DKatana = ({ pointerX, pointerY }) => {
   const katanaGroupRef = useRef();
 
   useFrame((state, delta) => {
     if (katanaGroupRef.current) {
-      // Fast floating rotation & gentle tilt
       katanaGroupRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.8) * 0.1 - 0.35;
       katanaGroupRef.current.rotation.y += delta * 0.35;
-      katanaGroupRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.4) * 0.12;
+      katanaGroupRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.4) * 0.1;
       
-      // Mouse tilt interactivity
+      // Pointer interactive tilt
       katanaGroupRef.current.rotation.x = pointerY * 0.2;
     }
   });
 
   return (
-    <group ref={katanaGroupRef} position={[0, 0, 1.2]} scale={[1.1, 1.1, 1.1]}>
+    <group ref={katanaGroupRef} position={[0, 0, 1.1]} scale={[1.15, 1.15, 1.15]}>
       {/* 3D Katana Blade Metallic Geometry */}
       <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
         <boxGeometry args={[4.2, 0.08, 0.02]} />
@@ -55,14 +54,14 @@ const CameraPassBy3DKatana = ({ pointerX, pointerY }) => {
   );
 };
 
-// Compact Vertical Sakura Vortex Particles
-const VerticalSakuraVortex = () => {
-  const petals = Array.from({ length: 18 }, (_, i) => ({
+// Compact Sakura Vortex Particles
+const CompactSakuraVortex = () => {
+  const petals = Array.from({ length: 16 }, (_, i) => ({
     id: i,
-    left: `${15 + Math.random() * 70}%`,
-    delay: Math.random() * 4,
-    duration: 4.5 + Math.random() * 4.5,
-    scale: 0.5 + Math.random() * 0.6,
+    left: `${10 + Math.random() * 80}%`,
+    delay: Math.random() * 3.5,
+    duration: 4 + Math.random() * 4,
+    scale: 0.5 + Math.random() * 0.5,
   }));
 
   return (
@@ -72,8 +71,8 @@ const VerticalSakuraVortex = () => {
           key={p.id}
           initial={{ y: '-10%', x: 0, rotate: 0, opacity: 0 }}
           animate={{
-            y: '105vh',
-            x: [0, 35, -25, 30],
+            y: '650px',
+            x: [0, 30, -20, 25],
             rotate: [0, 240, 480],
             opacity: [0, 0.85, 0.85, 0],
           }}
@@ -95,7 +94,7 @@ const VerticalSakuraVortex = () => {
 const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 6.0], fov: 45 }}
+      camera={{ position: [0, 0, 5.8], fov: 45 }}
       className="absolute inset-0 w-full h-full pointer-events-none z-2"
       gl={{ antialias: true, alpha: true }}
     >
@@ -110,8 +109,8 @@ const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
       </Float>
 
       {/* Sparkles */}
-      <Sparkles count={35} scale={8} size={2.2} speed={0.4} color="#FFD700" opacity={0.65} />
-      <Sparkles count={25} scale={10} size={1.8} speed={0.5} color="#641F1A" opacity={0.55} />
+      <Sparkles count={30} scale={7} size={2.2} speed={0.4} color="#FFD700" opacity={0.65} />
+      <Sparkles count={20} scale={9} size={1.8} speed={0.5} color="#641F1A" opacity={0.55} />
     </Canvas>
   );
 };
@@ -140,7 +139,7 @@ export const SelectionTrial3D = () => {
       id="ppt-round"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[85vh] sm:min-h-[92vh] py-10 sm:py-12 px-4 sm:px-8 overflow-hidden flex flex-col justify-between select-none"
+      className="relative h-[580px] sm:h-[600px] my-4 px-4 sm:px-8 overflow-hidden flex items-center justify-center select-none"
     >
       {/* 1. APPROVED BACKGROUND ARTWORK (Custom User Katana Torii Image) */}
       <SectionBackground
@@ -152,120 +151,127 @@ export const SelectionTrial3D = () => {
       {/* Soft Local Readability Vignettes */}
       <div className="absolute inset-0 bg-gradient-to-b from-amber-50/20 via-transparent to-amber-900/30 pointer-events-none z-0" />
 
-      {/* Vertical Sakura Vortex */}
-      <VerticalSakuraVortex />
+      {/* Compact Sakura Vortex */}
+      <CompactSakuraVortex />
 
       {/* 2. WebGL 3D Katana Pass-By Scene */}
       <Vertical3DScene mouseXVal={mouseX.get()} mouseYVal={mouseY.get()} />
 
-      {/* 3. COMPACT VERTICAL 3D EDITORIAL POSTER LAYOUT (FITS IN ~1 VIEWPORT) */}
+      {/* 3. ABSOLUTE LAYERED POSTER STAGE COMPOSITION INSIDE ~600PX (NO VIEWPORT HEIGHTS, NO CARDS) */}
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative z-10 max-w-5xl mx-auto w-full my-auto flex flex-col justify-between space-y-6 sm:space-y-10"
+        className="relative z-10 max-w-5xl mx-auto w-full h-full"
       >
         
-        {/* ==================================================
-            MOMENT 1: ROUND 01 — COMPACT TOP COMPOSITION (TOP 10–35%)
-        ================================================== */}
+        {/* TOP SECTION CATEGORY MARKER */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative text-left max-w-xl"
+          transition={{ duration: 0.4 }}
+          className="absolute top-4 left-0 z-20"
         >
-          {/* DIMENSIONAL CARVED 3D NUMERAL: 01 (LAYERS DIRECTLY BEHIND TEXT TO SAVE SPACE) */}
-          <span className="absolute -top-10 -left-4 font-display font-black text-8xl sm:text-[13rem] text-[#641F1A]/15 pointer-events-none select-none z-0 tracking-tighter">
+          <div className="katana-divider mb-2" />
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#8F2F26] font-bold px-3 py-0.5 bg-amber-50/40 border border-[#8F2F26]/30 rounded-full backdrop-blur-sm shadow-sm">
+            SELECTION TRIAL & FINALE • 01 & 02
+          </span>
+        </motion.div>
+
+        {/* ==================================================
+            ROUND 01 — ABSOLUTE TOP AREA (TOP 8–38%)
+        ================================================== */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="absolute top-12 sm:top-14 left-0 max-w-lg text-left z-10"
+        >
+          {/* DIMENSIONAL CARVED 3D NUMERAL 01 (LAYERS DIRECTLY BEHIND TEXT TO SAVE HEIGHT) */}
+          <span className="absolute -top-8 -left-3 font-display font-black text-8xl sm:text-[11rem] text-[#641F1A]/15 pointer-events-none select-none z-0 tracking-tighter">
             01
           </span>
 
-          <div className="relative z-10 space-y-2">
-            {/* EDITORIAL HEADER MARKER */}
-            <div className="flex items-center space-x-2 font-mono text-[11px] text-[#8F2F26] font-bold tracking-widest uppercase">
+          <div className="relative z-10 space-y-1">
+            <div className="flex items-center space-x-2 font-mono text-[10px] sm:text-[11px] text-[#8F2F26] font-bold tracking-widest uppercase">
               <span className="w-2 h-2 rounded-full bg-[#8F2F26] animate-pulse" />
-              <span>ROUND 01 • STAGE ONE</span>
+              <span>ROUND 01</span>
             </div>
 
-            {/* MAIN TITLE — HIGH READABILITY */}
-            <h3 className="font-display font-black text-3xl sm:text-6xl text-[#2A1814] tracking-tight leading-none drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
+            <h3 className="font-display font-black text-3xl sm:text-5xl text-[#2A1814] tracking-tight leading-none drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
               PPT <br />
               <span className="text-[#641F1A]">SUBMISSION</span>
             </h3>
 
-            {/* DEADLINE COMPOSITION */}
-            <div className="pt-2 border-t border-[#8F2F26]/30 flex items-center space-x-4">
-              <div className="font-display font-black text-4xl sm:text-6xl text-[#8F2F26] tracking-tighter drop-shadow-[0_2px_6px_rgba(255,255,255,0.8)]">
+            <div className="pt-1.5 border-t border-[#8F2F26]/30 flex items-center space-x-3">
+              <div className="font-display font-black text-3xl sm:text-5xl text-[#8F2F26] tracking-tighter drop-shadow-[0_2px_6px_rgba(255,255,255,0.85)]">
                 10
               </div>
 
-              <div className="flex flex-col font-mono text-[11px] sm:text-xs font-black tracking-widest uppercase leading-none text-left">
+              <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest uppercase leading-none text-left">
                 <span className="text-[#8F2F26]">DEADLINE</span>
-                <span className="text-[#2A1814] text-sm sm:text-lg font-extrabold mt-0.5">OCTOBER 2026</span>
+                <span className="text-[#2A1814] text-xs sm:text-base font-extrabold mt-0.5">OCTOBER 2026</span>
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* ==================================================
-            MOMENT 2: COMPACT CENTER TRANSITION (MIDDLE 35–60%)
+            CENTER STAGE: KATANA DIAGONAL CROSSING (MIDDLE 30–70%)
         ================================================== */}
-        <div className="relative py-1 text-center pointer-events-none my-1">
-          <div className="w-px h-12 sm:h-16 bg-gradient-to-b from-[#8F2F26]/40 via-[#FFD700] to-[#641F1A]/40 mx-auto" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-[#641F1A] font-extrabold block mt-1">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 text-center">
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#641F1A] font-extrabold opacity-75">
             DESCENT TO FINALE
           </span>
         </div>
 
         {/* ==================================================
-            MOMENT 3: ROUND 02 — COMPACT LOWER ARRIVAL (BOTTOM 55–90%)
+            ROUND 02 — ABSOLUTE BOTTOM AREA (BOTTOM 58–94%)
         ================================================== */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative text-right max-w-xl ml-auto"
+          className="absolute bottom-6 sm:bottom-8 right-0 max-w-lg text-right z-10"
         >
-          {/* DIMENSIONAL GOLD/BURGUNDY 3D NUMERAL: 02 (LAYERS DIRECTLY BEHIND TEXT TO SAVE SPACE) */}
-          <span className="absolute -top-10 -right-4 font-display font-black text-8xl sm:text-[13rem] text-[#8F2F26]/15 pointer-events-none select-none z-0 tracking-tighter">
+          {/* DIMENSIONAL GOLD/BURGUNDY 3D NUMERAL 02 (LAYERS DIRECTLY BEHIND TEXT TO SAVE HEIGHT) */}
+          <span className="absolute -top-8 -right-3 font-display font-black text-8xl sm:text-[11rem] text-[#8F2F26]/15 pointer-events-none select-none z-0 tracking-tighter">
             02
           </span>
 
-          <div className="relative z-10 space-y-2">
-            {/* EDITORIAL HEADER MARKER */}
-            <div className="flex items-center justify-end space-x-2 font-mono text-[11px] text-[#8F2F26] font-bold tracking-widest uppercase">
-              <span>ROUND 02 • THE DESTINATION</span>
+          <div className="relative z-10 space-y-1">
+            <div className="flex items-center justify-end space-x-2 font-mono text-[10px] sm:text-[11px] text-[#8F2F26] font-bold tracking-widest uppercase">
+              <span>ROUND 02 • DESTINATION</span>
               <span className="w-2 h-2 rounded-full bg-[#FFD700] shadow-[0_0_8px_#FFD700]" />
             </div>
 
-            {/* MAIN TITLE — HERO GRAND FINALE */}
-            <h3 className="font-display font-black text-3xl sm:text-6xl text-[#2A1814] tracking-tight leading-none drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
+            <h3 className="font-display font-black text-3xl sm:text-5xl text-[#2A1814] tracking-tight leading-none drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
               GRAND <br />
               <span className="text-[#641F1A]">FINALE</span>
             </h3>
 
-            {/* POSTER DATE COMPOSITION: 24 — 25 */}
-            <div className="space-y-2 pt-2 border-t border-[#8F2F26]/30 flex flex-col items-end">
+            <div className="space-y-1.5 pt-1.5 border-t border-[#8F2F26]/30 flex flex-col items-end">
               <div className="flex items-center space-x-3">
-                <div className="font-display font-black text-4xl sm:text-6xl text-[#8F2F26] tracking-tighter drop-shadow-[0_2px_6px_rgba(255,255,255,0.8)] flex items-center">
+                <div className="font-display font-black text-3xl sm:text-5xl text-[#8F2F26] tracking-tighter drop-shadow-[0_2px_6px_rgba(255,255,255,0.85)] flex items-center">
                   <span>24</span>
-                  <span className="text-[#641F1A] mx-1.5 font-mono text-2xl sm:text-4xl">—</span>
+                  <span className="text-[#641F1A] mx-1 font-mono text-xl sm:text-3xl">—</span>
                   <span>25</span>
                 </div>
 
-                <div className="flex flex-col font-mono text-[11px] sm:text-xs font-black tracking-widest uppercase leading-none text-right">
+                <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest uppercase leading-none text-right">
                   <span className="text-[#8F2F26]">OCTOBER</span>
                   <span className="text-[#2A1814] mt-0.5">2026</span>
                 </div>
               </div>
 
               {/* DESTINATION LOCATION STAMP & DURATION ON ONE COMPACT LINE */}
-              <div className="flex flex-wrap items-center justify-end gap-2 text-[11px] font-mono font-bold pt-0.5">
-                <div className="px-3 py-0.5 bg-[#641F1A]/10 border border-[#641F1A]/40 rounded text-[#641F1A] font-black shadow-sm">
+              <div className="flex flex-wrap items-center justify-end gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold pt-0.5">
+                <div className="px-2.5 py-0.5 bg-[#641F1A]/10 border border-[#641F1A]/40 rounded text-[#641F1A] font-black shadow-sm">
                   <span>📍 NIT DELHI</span>
                 </div>
 
-                <div className="px-3 py-0.5 bg-[#8F2F26]/10 border border-[#8F2F26]/40 rounded text-[#8F2F26] font-black shadow-sm">
+                <div className="px-2.5 py-0.5 bg-[#8F2F26]/10 border border-[#8F2F26]/40 rounded text-[#8F2F26] font-black shadow-sm">
                   <span>⚡ 36 HOURS</span>
                 </div>
               </div>
