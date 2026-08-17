@@ -2,7 +2,7 @@
 export const backgrounds = {
   hero: "/backgrounds/01_sunrise_samurai.png?v=cream2",
   about: "/backgrounds/02_bamboo_forest.png?v=cream2",
-  trial: "/backgrounds/03_torii_cherry_blossom.png?v=cream2",
+  trial: "/backgrounds/03_torii_cherry_blossom.png?v=user_torii_custom",
   tracks: "/backgrounds/04_fantasy_waterfall_realm.png?v=cream2",
   timeline: "/backgrounds/05_sakura_mountain_path.png?v=cream2",
   organisers: "/backgrounds/06_bright_campus_scene.png?v=cream2",
