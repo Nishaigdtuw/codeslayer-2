@@ -30,7 +30,7 @@ export const ExplosiveHero3D = () => {
       <SectionBackground
         src={backgrounds.hero}
         alt="Sunrise Samurai Hero Atmosphere"
-        overlayOpacity={0.10}
+        overlayOpacity={0.08}
       />
 
       {/* HERO CONTENT */}
@@ -45,7 +45,7 @@ export const ExplosiveHero3D = () => {
         <div className="my-auto space-y-4">
           
           {/* HIGH CONTRAST PILL BADGE */}
-          <div className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-black/75 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(234,179,8,0.9)] drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+          <div className="inline-flex items-center space-x-2 px-6 py-2 rounded-full bg-black/40 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(234,179,8,0.9)] backdrop-blur-sm">
             <Flame className="w-5 h-5 text-yellow-400 animate-bounce" />
             <span>36-HOUR NATIONAL HACKATHON</span>
           </div>
@@ -65,7 +65,7 @@ export const ExplosiveHero3D = () => {
             {/* 3D 2.0 Badge */}
             <motion.span
               initial={{ rotateY: 0, scale: 1, opacity: 1 }}
-              className="font-mono text-3xl sm:text-5xl text-yellow-400 ml-2 font-black inline-block"
+              className="font-mono text-3xl sm:text-5xl text-yellow-400 ml-2 font-black inline-block drop-shadow-md"
             >
               2.0
             </motion.span>
@@ -81,7 +81,7 @@ export const ExplosiveHero3D = () => {
             # 24 — 25 OCTOBER 2026 • NIT DELHI
           </p>
 
-          <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-black/60 border border-crimson-500/50 backdrop-blur-md">
+          <div className="max-w-2xl mx-auto p-4 rounded-xl bg-black/20 border border-crimson-500/40 backdrop-blur-sm shadow-xl">
             <p className="text-white text-sm sm:text-base font-medium leading-relaxed drop-shadow-md">
               Online PPT Selection Trial followed by an intense 36-hour offline hackathon at National Institute of Technology Delhi.
             </p>
@@ -103,7 +103,7 @@ export const ExplosiveHero3D = () => {
             <a
               href="#tracks"
               onClick={() => soundEngine.playClick()}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-black/60 border-2 border-yellow-400/80 hover:border-yellow-400 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider shadow-lg backdrop-blur-md"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-black/30 border-2 border-yellow-400/80 hover:border-yellow-400 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider shadow-lg backdrop-blur-sm"
             >
               <Compass className="w-5 h-5 text-yellow-400" />
               <span>CHOOSE BATTLEFIELD</span>
@@ -112,26 +112,26 @@ export const ExplosiveHero3D = () => {
         </div>
 
         {/* Demon Countdown Timer Bar */}
-        <div className="max-w-xl mx-auto w-full p-4 rounded-2xl bg-black/75 border border-crimson-500/50 shadow-2xl backdrop-blur-md">
+        <div className="max-w-xl mx-auto w-full p-4 rounded-xl bg-black/30 border border-crimson-500/40 shadow-2xl backdrop-blur-sm">
           <div className="text-[10px] font-mono tracking-widest text-yellow-400 font-bold uppercase mb-2">
             TIME REMAINING UNTIL HACKATHON IGNITION
           </div>
           <div className="grid grid-cols-4 gap-2 text-center font-mono font-black text-xl sm:text-3xl text-white">
             <div>
-              <span>{String(timeLeft.days).padStart(3, '0')}</span>
-              <span className="block text-[9px] font-normal text-gray-300 uppercase">DAYS</span>
+              <span className="drop-shadow-md">{String(timeLeft.days).padStart(3, '0')}</span>
+              <span className="block text-[9px] font-normal text-gray-200 uppercase">DAYS</span>
             </div>
             <div>
-              <span>{String(timeLeft.hours).padStart(2, '0')}</span>
-              <span className="block text-[9px] font-normal text-gray-300 uppercase">HOURS</span>
+              <span className="drop-shadow-md">{String(timeLeft.hours).padStart(2, '0')}</span>
+              <span className="block text-[9px] font-normal text-gray-200 uppercase">HOURS</span>
             </div>
             <div>
-              <span>{String(timeLeft.mins).padStart(2, '0')}</span>
-              <span className="block text-[9px] font-normal text-gray-300 uppercase">MINS</span>
+              <span className="drop-shadow-md">{String(timeLeft.mins).padStart(2, '0')}</span>
+              <span className="block text-[9px] font-normal text-gray-200 uppercase">MINS</span>
             </div>
             <div>
-              <span>{String(timeLeft.secs).padStart(2, '0')}</span>
-              <span className="block text-[9px] font-normal text-gray-300 uppercase">SECS</span>
+              <span className="drop-shadow-md">{String(timeLeft.secs).padStart(2, '0')}</span>
+              <span className="block text-[9px] font-normal text-gray-200 uppercase">SECS</span>
             </div>
           </div>
         </div>

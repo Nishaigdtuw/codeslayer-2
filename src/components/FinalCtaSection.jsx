@@ -10,12 +10,15 @@ export const FinalCtaSection = () => {
   return (
     <section className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
-      {/* FINAL CTA BACKGROUND: 09_sunrise_cliff_samurai.png */}
+      {/* FINAL CTA BACKGROUND HERO: 09_sunrise_cliff_samurai.png */}
       <SectionBackground
         src={backgrounds.finalCTA}
         alt="Sunrise Cliff Samurai Final CTA Atmosphere"
         overlayOpacity={0.10}
       />
+
+      {/* Subtle Central Readability Vignette */}
+      <div className="absolute inset-0 bg-radial-vignette opacity-30 pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center py-12 w-full">
         
@@ -25,7 +28,7 @@ export const FinalCtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-black/80 border border-yellow-400/50 rounded-full inline-block mb-6 shadow-lg backdrop-blur-md"
+          className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-1.5 bg-black/40 border border-yellow-400/50 rounded-full inline-block mb-6 shadow-lg backdrop-blur-sm"
         >
           SCENE 09 • THE FINAL CALL TO ARMS
         </motion.span>
@@ -45,25 +48,25 @@ export const FinalCtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-black/80 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest mb-8 shadow-[0_0_30px_rgba(234,179,8,0.9)] backdrop-blur-md"
+          className="inline-flex items-center space-x-2 px-6 py-2 rounded-full bg-black/40 border border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest mb-8 shadow-[0_0_30px_rgba(234,179,8,0.7)] backdrop-blur-sm"
         >
           <Sparkles className="w-5 h-5 text-yellow-400 animate-spin" />
           <span>REGISTRATIONS: 20 AUGUST – 6 OCTOBER 2026</span>
         </motion.div>
 
-        {/* Venue & Dates Box */}
+        {/* Venue & Dates Box — LIGHT TRANSLUCENT SURFACE */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-xl mx-auto p-6 rounded-3xl bg-black/65 border-2 border-amber-500/60 backdrop-blur-md shadow-2xl space-y-3 mb-10 text-left"
+          className="max-w-xl mx-auto p-6 rounded-xl bg-black/20 border border-amber-500/50 backdrop-blur-sm shadow-2xl space-y-3 mb-10 text-left"
         >
-          <div className="flex items-center space-x-3 text-white font-bold text-sm sm:text-base">
+          <div className="flex items-center space-x-3 text-white font-bold text-sm sm:text-base drop-shadow-md">
             <Calendar className="w-5 h-5 text-yellow-400 flex-shrink-0" />
             <span>24–25 October 2026 (36-Hour Offline Finale)</span>
           </div>
-          <div className="flex items-center space-x-3 text-gray-200 font-medium text-xs sm:text-sm">
+          <div className="flex items-center space-x-3 text-gray-100 font-medium text-xs sm:text-sm drop-shadow-sm">
             <MapPin className="w-5 h-5 text-amber-400 flex-shrink-0" />
             <span>National Institute of Technology (NIT) Delhi</span>
           </div>
@@ -82,13 +85,13 @@ export const FinalCtaSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => soundEngine.playKatanaSlash()}
-            className="px-12 py-6 rounded-2xl font-black text-xl text-black bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 border-2 border-yellow-300 shadow-[0_0_60px_rgba(234,179,8,0.9)] hover:shadow-[0_0_90px_rgba(250,204,21,1)] hover:scale-105 transition-all flex items-center space-x-3 sword-slash-container uppercase tracking-wider"
+            className="px-12 py-6 rounded-xl font-black text-xl text-black bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 border-2 border-yellow-300 shadow-[0_0_60px_rgba(234,179,8,0.9)] hover:shadow-[0_0_90px_rgba(250,204,21,1)] hover:scale-105 transition-all flex items-center space-x-3 sword-slash-container uppercase tracking-wider"
           >
             <Ticket className="w-7 h-7 text-black" />
             <span>REGISTER NOW</span>
           </a>
 
-          <p className="font-mono text-xs text-gray-300 mt-4 tracking-wider">
+          <p className="font-mono text-xs text-gray-200 mt-4 tracking-wider drop-shadow-md font-bold">
             Registration closes 6 October 2026 • Free of Cost
           </p>
         </motion.div>

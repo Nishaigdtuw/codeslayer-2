@@ -26,21 +26,21 @@ export const FaqSection = () => {
 
       <div className="relative z-10 max-w-4xl mx-auto w-full">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 p-8 rounded-3xl bg-black/65 border-2 border-pink-500/60 shadow-2xl backdrop-blur-md">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/80 border border-pink-400/50 rounded-full inline-block mb-4">
+        {/* Section Header — DIRECT UNCONTAINED TYPOGRAPHY */}
+        <div className="text-center max-w-3xl mx-auto mb-16 p-6 rounded-xl bg-black/15 border border-pink-400/30 backdrop-blur-sm shadow-2xl">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-1.5 bg-pink-950/60 border border-pink-400/40 rounded-full inline-block mb-4">
             SCENE 08 • FREQUENTLY ASKED QUESTIONS
           </span>
 
-          <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight">
+          <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
             CLEAR YOUR <span className="text-pink-400 text-glow-white">DOUBTS</span>
           </h2>
-          <p className="text-gray-200 text-sm sm:text-base font-bold mt-2">
+          <p className="text-gray-100 text-sm sm:text-base font-bold mt-2 drop-shadow-md">
             Everything you need to know about CodeSlayer 2.0
           </p>
         </div>
 
-        {/* Translucent Accordions Grid */}
+        {/* Translucent Glass Accordions */}
         <div className="space-y-4">
           {eventConfig.faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
@@ -52,7 +52,7 @@ export const FaqSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="rounded-2xl bg-black/65 border-2 border-pink-400/40 backdrop-blur-md overflow-hidden shadow-2xl text-left"
+                className="rounded-xl bg-black/20 border border-pink-400/30 backdrop-blur-md overflow-hidden shadow-2xl text-left"
               >
                 <button
                   onClick={() => toggleFaq(idx)}
@@ -60,7 +60,7 @@ export const FaqSection = () => {
                 >
                   <div className="flex items-center space-x-3 pr-4">
                     <HelpCircle className="w-5 h-5 text-pink-400 flex-shrink-0" />
-                    <span className="font-display font-bold text-base sm:text-lg text-white">
+                    <span className="font-display font-bold text-base sm:text-lg text-white drop-shadow-md">
                       {faq.q}
                     </span>
                   </div>
@@ -80,7 +80,7 @@ export const FaqSection = () => {
                       transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-6 pt-0 border-t border-gray-800 text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">
+                      <div className="p-6 pt-0 border-t border-pink-500/20 text-gray-100 text-xs sm:text-sm font-medium leading-relaxed drop-shadow-sm">
                         {faq.a}
                       </div>
                     </motion.div>

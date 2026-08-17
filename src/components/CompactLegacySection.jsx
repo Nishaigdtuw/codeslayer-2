@@ -23,12 +23,12 @@ export const CompactLegacySection = () => {
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 p-8 rounded-3xl bg-black/75 border-2 border-crimson-500/70 shadow-2xl backdrop-blur-md text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 p-6 rounded-xl bg-black/20 border border-crimson-500/50 shadow-2xl backdrop-blur-sm text-left">
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-3.5 py-1.5 bg-red-950/80 border border-yellow-400/50 rounded-full inline-block mb-3">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-3.5 py-1.5 bg-red-950/60 border border-yellow-400/50 rounded-full inline-block mb-3">
               SCENE 06 • PREVIOUS EDITION
             </span>
-            <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight">
+            <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
               CODESLAYER <span className="text-crimson-bright">1.0</span> PROOF
             </h2>
           </div>
@@ -36,13 +36,13 @@ export const CompactLegacySection = () => {
           {/* Compact Stats */}
           <div className="flex items-center space-x-6 mt-6 sm:mt-0">
             <div className="text-center sm:text-right">
-              <div className="font-display font-black text-4xl sm:text-5xl text-yellow-400">10K+</div>
-              <span className="font-mono text-[10px] text-gray-300 font-bold uppercase tracking-widest block">REGISTRATIONS</span>
+              <div className="font-display font-black text-4xl sm:text-5xl text-yellow-400 drop-shadow-md">10K+</div>
+              <span className="font-mono text-[10px] text-gray-200 font-bold uppercase tracking-widest block">REGISTRATIONS</span>
             </div>
             <div className="w-px h-10 bg-gray-700" />
             <div className="text-center sm:text-right">
-              <div className="font-display font-black text-4xl sm:text-5xl text-crimson-bright">65</div>
-              <span className="font-mono text-[10px] text-gray-300 font-bold uppercase tracking-widest block">TEAMS SELECTED</span>
+              <div className="font-display font-black text-4xl sm:text-5xl text-crimson-bright drop-shadow-md">65</div>
+              <span className="font-mono text-[10px] text-gray-200 font-bold uppercase tracking-widest block">TEAMS SELECTED</span>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ export const CompactLegacySection = () => {
                 setSelectedPhoto(photo);
               }}
               whileHover={{ scale: 1.04 }}
-              className="rounded-2xl overflow-hidden border-2 border-crimson-500/40 shadow-2xl cursor-pointer relative group bg-black/65 text-left"
+              className="rounded-xl overflow-hidden border border-crimson-500/40 shadow-2xl cursor-pointer relative group bg-black/30 text-left backdrop-blur-sm"
             >
               <div className="h-56 overflow-hidden relative">
                 <img
@@ -75,7 +75,7 @@ export const CompactLegacySection = () => {
                 </div>
               </div>
 
-              <div className="p-4 bg-black/80 backdrop-blur-md">
+              <div className="p-4 bg-black/40 backdrop-blur-sm">
                 <span className="font-mono text-[10px] text-yellow-400 font-bold uppercase tracking-widest block mb-1">
                   {photo.timestamp}
                 </span>
@@ -101,7 +101,7 @@ export const CompactLegacySection = () => {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="max-w-4xl w-full rounded-3xl overflow-hidden bg-black border-2 border-yellow-400 shadow-2xl p-4 text-left relative"
+              className="max-w-4xl w-full rounded-2xl overflow-hidden bg-black border-2 border-yellow-400 shadow-2xl p-4 text-left relative"
             >
               <button
                 onClick={() => setSelectedPhoto(null)}
@@ -113,7 +113,7 @@ export const CompactLegacySection = () => {
               <img
                 src={selectedPhoto.src}
                 alt={selectedPhoto.caption}
-                className="w-full h-[70vh] object-contain rounded-2xl mb-4"
+                className="w-full h-[70vh] object-contain rounded-xl mb-4"
               />
 
               <div className="px-4 pb-2">
