@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ParallaxBackground } from '../ParallaxBackground';
 import { eventConfig } from '../../data/eventConfig';
+import { backgrounds } from '../../data/backgrounds';
 import { soundEngine } from '../../utils/audio';
 import { Activity, Cpu, ShieldAlert, Leaf, Wifi, Zap, X, ChevronRight } from 'lucide-react';
 
@@ -21,11 +22,11 @@ export const Tracks3DHub = () => {
   return (
     <section id="tracks" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED IMAGE 04: FANTASY WATERFALL REALM BACKGROUND */}
+      {/* TRACKS BACKGROUND: 04_fantasy_waterfall_realm.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/04_fantasy_waterfall_realm.png"
+        imageSrc={backgrounds.tracks}
         altText="Fantasy Waterfall Realm Tracks Atmosphere"
-        overlayOpacity={0.20}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">

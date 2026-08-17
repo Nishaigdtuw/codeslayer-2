@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
 import { eventConfig } from '../data/eventConfig';
+import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 
@@ -16,11 +17,11 @@ export const FaqSection = () => {
   return (
     <section id="faq" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED IMAGE 08: MOONLIT SAKURA COURTYARD BACKGROUND */}
+      {/* FAQ BACKGROUND: 08_moonlit_sakura_courtyard.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/08_moonlit_sakura_courtyard.png"
+        imageSrc={backgrounds.faq}
         altText="Moonlit Sakura Courtyard FAQ Atmosphere"
-        overlayOpacity={0.20}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-4xl mx-auto">

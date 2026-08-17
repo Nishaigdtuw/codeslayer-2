@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
 import { eventConfig } from '../data/eventConfig';
+import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
 import { Scroll, Download, FileText, CheckCircle2 } from 'lucide-react';
 
@@ -9,11 +10,11 @@ export const SelectionTrial3D = () => {
   return (
     <section id="ppt-round" className="py-28 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED IMAGE 03: TORII CHERRY BLOSSOM BACKGROUND */}
+      {/* SELECTION TRIAL BACKGROUND: 03_torii_cherry_blossom.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/03_torii_cherry_blossom.png"
+        imageSrc={backgrounds.trial}
         altText="Torii Cherry Blossom Selection Trial Atmosphere"
-        overlayOpacity={0.20}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">

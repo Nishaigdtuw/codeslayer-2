@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
-import { eventConfig } from '../data/eventConfig';
+import { backgrounds } from '../data/backgrounds';
 
 export const AboutSection = () => {
   return (
     <section id="about" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#0B0B0E]">
       
-      {/* FULL-BLEED IMAGE 02: BAMBOO FOREST BACKGROUND */}
+      {/* ABOUT BACKGROUND: 02_bamboo_forest.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/02_bamboo_forest.png"
+        imageSrc={backgrounds.about}
         altText="Bright Moonlit Bamboo Forest Atmosphere"
-        overlayOpacity={0.20}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">

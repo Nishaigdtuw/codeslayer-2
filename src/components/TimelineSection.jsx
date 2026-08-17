@@ -2,17 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
 import { eventConfig } from '../data/eventConfig';
+import { backgrounds } from '../data/backgrounds';
 import { Calendar, CheckCircle2 } from 'lucide-react';
 
 export const TimelineSection = () => {
   return (
     <section id="timeline" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED IMAGE 05: SAKURA MOUNTAIN PATH BACKGROUND */}
+      {/* TIMELINE BACKGROUND: 05_sakura_mountain_path.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/05_sakura_mountain_path.png"
+        imageSrc={backgrounds.timeline}
         altText="Sakura Mountain Path Timeline Atmosphere"
-        overlayOpacity={0.20}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">

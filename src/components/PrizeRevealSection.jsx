@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
+import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
 import { Lock, Sparkles } from 'lucide-react';
 
@@ -8,11 +9,11 @@ export const PrizeRevealSection = () => {
   return (
     <section id="prizes" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED IMAGE 07: SEALED SCROLL HALL BACKGROUND */}
+      {/* PRIZE REVEAL BACKGROUND: 07_sealed_scroll_hall.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/07_sealed_scroll_hall.png"
+        imageSrc={backgrounds.prizes}
         altText="Sealed Scroll Hall Prize Atmosphere"
-        overlayOpacity={0.20}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">

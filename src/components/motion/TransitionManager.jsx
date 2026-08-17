@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { backgrounds } from '../../data/backgrounds';
 
 export const TransitionManager = ({ activeTransition = null }) => {
   if (!activeTransition) return null;
@@ -13,7 +14,7 @@ export const TransitionManager = ({ activeTransition = null }) => {
             animate={{ opacity: [0, 1, 0] }}
             transition={{ duration: 0.15 }}
             className="absolute inset-0 bg-cover bg-center filter contrast-125 brightness-110"
-            style={{ backgroundImage: `url('/backgrounds/10_katana_battlefield.png')` }}
+            style={{ backgroundImage: `url(${backgrounds.transitionSlash})` }}
           />
           <motion.div
             initial={{ scaleX: 0 }}
@@ -32,7 +33,7 @@ export const TransitionManager = ({ activeTransition = null }) => {
             animate={{ scale: [0.8, 1.5, 1], opacity: [0, 1, 0] }}
             transition={{ duration: 0.5 }}
             className="absolute inset-0 bg-cover bg-center filter contrast-125"
-            style={{ backgroundImage: `url('/backgrounds/11_celestial_torii_portal.png')` }}
+            style={{ backgroundImage: `url(${backgrounds.transitionPortal})` }}
           />
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
@@ -50,7 +51,7 @@ export const TransitionManager = ({ activeTransition = null }) => {
           animate={{ opacity: [0, 1, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 0.6 }}
           className="fixed inset-0 z-50 pointer-events-none bg-cover bg-center filter contrast-110"
-          style={{ backgroundImage: `url('/backgrounds/12_sakura_castle_waterfall.png')` }}
+          style={{ backgroundImage: `url(${backgrounds.transitionCastle})` }}
         />
       );
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { eventConfig } from '../data/eventConfig';
+import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
 import { ParallaxBackground } from './ParallaxBackground';
 import { Maximize2, X } from 'lucide-react';
@@ -12,11 +13,11 @@ export const CompactLegacySection = () => {
   return (
     <section id="legacy" className="py-24 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
       
-      {/* FULL-BLEED BACKGROUND */}
+      {/* LEGACY BACKGROUND: 05_sakura_mountain_path.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/05_sakura_mountain_path.png"
+        imageSrc={backgrounds.legacy}
         altText="Previous Edition Atmosphere"
-        overlayOpacity={0.25}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">

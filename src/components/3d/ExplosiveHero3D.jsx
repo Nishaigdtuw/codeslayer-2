@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ParallaxBackground } from '../ParallaxBackground';
 import { OrganiserLogos } from '../OrganiserLogos';
 import { eventConfig } from '../../data/eventConfig';
+import { backgrounds } from '../../data/backgrounds';
 import { soundEngine } from '../../utils/audio';
 import { Ticket, Compass, Flame, FastForward } from 'lucide-react';
 
@@ -55,12 +56,12 @@ export const ExplosiveHero3D = () => {
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden bg-[#0B0B0E] flex flex-col justify-between">
       
-      {/* FULL-BLEED IMAGE 01: SUNRISE SAMURAI BACKGROUND */}
+      {/* HERO BACKGROUND: 01_sunrise_samurai.png */}
       {step >= 4 && (
         <ParallaxBackground
-          imageSrc="/backgrounds/01_sunrise_samurai.png"
+          imageSrc={backgrounds.hero}
           altText="Sunrise Samurai Hero Atmosphere"
-          overlayOpacity={0.18}
+          overlayOpacity={0.15}
         />
       )}
 

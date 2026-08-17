@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ParallaxBackground } from './ParallaxBackground';
 import { eventConfig } from '../data/eventConfig';
+import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
 import { Ticket, Sparkles, MapPin, Calendar } from 'lucide-react';
 
@@ -9,11 +10,11 @@ export const FinalCtaSection = () => {
   return (
     <section className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#0B0B0E]">
       
-      {/* FULL-BLEED IMAGE 09: SUNRISE CLIFF SAMURAI BACKGROUND */}
+      {/* FINAL CTA BACKGROUND: 09_sunrise_cliff_samurai.png */}
       <ParallaxBackground
-        imageSrc="/backgrounds/09_sunrise_cliff_samurai.png"
+        imageSrc={backgrounds.finalCTA}
         altText="Sunrise Cliff Samurai Final CTA Atmosphere"
-        overlayOpacity={0.18}
+        overlayOpacity={0.15}
       />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center py-12">
