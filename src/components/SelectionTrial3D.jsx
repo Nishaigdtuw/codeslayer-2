@@ -1,103 +1,15 @@
 import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Sparkles } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { Sparkles } from '@react-three/drei';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SectionBackground } from './SectionBackground';
 import { backgrounds } from '../data/backgrounds';
 
-// Stylized 3D Katana for Right Visual Side (Positioned x: 62%–90%)
-const RightCinematicKatana = ({ pointerX, pointerY }) => {
-  const katanaRef = useRef();
-  const ribbonRef = useRef();
-  const lightSweepRef = useRef();
-
-  useFrame((state, delta) => {
-    const t = state.clock.getElapsedTime();
-    if (katanaRef.current) {
-      // Diagonal perspective: handle closer to camera (upper-right), blade extending into depth (lower-center/right)
-      katanaRef.current.rotation.z = Math.sin(t * 0.6) * 0.05 - 0.48;
-      katanaRef.current.rotation.y = Math.cos(t * 0.5) * 0.07 + 0.38;
-      katanaRef.current.position.y = Math.sin(t * 1.1) * 0.06 - 0.1;
-      
-      // Pointer interaction influences ONLY the 3D artwork (±4deg max)
-      katanaRef.current.rotation.x = pointerY * 0.06;
-      katanaGroupRef.current.rotation.y = pointerX * 0.06;
-    }
-
-    if (ribbonRef.current) {
-      ribbonRef.current.rotation.z = Math.sin(t * 0.8) * 0.12 - 0.2;
-      ribbonRef.current.position.y = Math.cos(t * 1.0) * 0.05;
-    }
-
-    if (lightSweepRef.current) {
-      // Light sweep traveling across blade every few seconds
-      lightSweepRef.current.position.x = ((t * 1.5) % 4.5) - 2.25;
-    }
-  });
-
-  const katanaGroupRef = useRef();
-
-  return (
-    <group ref={katanaGroupRef} position={[2.0, -0.15, 1.3]} scale={[1.35, 1.35, 1.35]}>
-      {/* 3D Katana Assembly */}
-      <group ref={katanaRef}>
-        {/* Steel / Silver Blade Geometry */}
-        <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
-          <boxGeometry args={[4.5, 0.075, 0.018]} />
-          <meshStandardMaterial
-            color="#ECECEC"
-            metalness={0.96}
-            roughness={0.12}
-            envMapIntensity={3.0}
-          />
-        </mesh>
-
-        {/* Dark Edge & Antique Gold Accent */}
-        <mesh position={[0, 0.038, 0.001]} rotation={[0, 0, Math.PI / 4]}>
-          <boxGeometry args={[4.52, 0.018, 0.02]} />
-          <meshBasicMaterial color="#FFD700" />
-        </mesh>
-
-        {/* Blade Light Sweep Highlight */}
-        <mesh ref={lightSweepRef} position={[0, 0, 0.012]} rotation={[0, 0, Math.PI / 4]}>
-          <boxGeometry args={[0.5, 0.08, 0.005]} />
-          <meshBasicMaterial color="#FFF5E0" transparent opacity={0.85} />
-        </mesh>
-
-        {/* Elegant Oval Tsuba (Handguard) */}
-        <mesh position={[-1.3, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-          <cylinderGeometry args={[0.24, 0.24, 0.035, 24]} />
-          <meshStandardMaterial color="#6B221F" metalness={0.85} roughness={0.25} />
-        </mesh>
-
-        {/* Tsuka (Handle with Dark Burgundy Wrap) */}
-        <mesh position={[-1.9, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
-          <cylinderGeometry args={[0.085, 0.085, 1.15, 16]} />
-          <meshStandardMaterial color="#2B1714" roughness={0.7} />
-        </mesh>
-      </group>
-
-      {/* Floating 3D Silk / Ink Ribbon */}
-      <group ref={ribbonRef} position={[0.2, 0.1, -0.2]}>
-        <mesh rotation={[0.2, 0.4, -0.3]}>
-          <torusGeometry args={[1.6, 0.03, 16, 100, Math.PI * 1.4]} />
-          <meshStandardMaterial
-            color="#4D1917"
-            transparent
-            opacity={0.65}
-            roughness={0.4}
-          />
-        </mesh>
-      </group>
-    </group>
-  );
-};
-
-// 3D Sakura Trajectory Arc (Passing behind and in front of Katana)
+// Floating Sakura Trajectory Particles
 const RightSakuraArc = () => {
   const petals = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    left: `${52 + Math.random() * 42}%`,
+    left: `${45 + Math.random() * 50}%`,
     delay: Math.random() * 3.5,
     duration: 4.2 + Math.random() * 4,
     scale: 0.45 + Math.random() * 0.55,
@@ -129,8 +41,8 @@ const RightSakuraArc = () => {
   );
 };
 
-// WebGL Scene Container
-const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
+// WebGL Scene Container (Sparkles & Atmosphere ONLY, NO 3D Sword Meshes)
+const Vertical3DScene = () => {
   return (
     <Canvas
       camera={{ position: [0, 0, 5.8], fov: 45 }}
@@ -138,16 +50,11 @@ const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
       gl={{ antialias: true, alpha: true }}
     >
       <ambientLight intensity={0.95} />
-      <directionalLight position={[4, 7, 5]} intensity={2.2} color="#FFF5E0" castShadow />
-      <pointLight position={[-3, 2, 3]} intensity={1.4} color="#4D1917" />
-      <pointLight position={[3, -2, 3]} intensity={1.8} color="#FFD700" />
+      <directionalLight position={[4, 7, 5]} intensity={1.8} color="#FFF5E0" />
+      <pointLight position={[-3, 2, 3]} intensity={1.2} color="#4D1917" />
+      <pointLight position={[3, -2, 3]} intensity={1.5} color="#FFD700" />
 
-      {/* Floating 3D Katana on Right Side */}
-      <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
-        <RightCinematicKatana pointerX={mouseXVal} pointerY={mouseYVal} />
-      </Float>
-
-      {/* Sparkles on Right Side */}
+      {/* Ambient Atmospheric Sparkles (Right Side Visual Atmosphere) */}
       <Sparkles count={32} scale={7} size={2.2} speed={0.4} color="#FFD700" opacity={0.7} />
       <Sparkles count={22} scale={9} size={1.8} speed={0.5} color="#4D1917" opacity={0.6} />
     </Canvas>
@@ -157,12 +64,12 @@ const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
 export const SelectionTrial3D = () => {
   const containerRef = useRef(null);
 
-  // Mouse Pointer Parallax
+  // Subtle Mouse Pointer Parallax for Content Stage
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [2, -2]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [1.5, -1.5]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-2, 2]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -190,14 +97,14 @@ export const SelectionTrial3D = () => {
         }
       `}</style>
 
-      {/* APPROVED BACKGROUND ARTWORK */}
+      {/* 1. APPROVED BACKGROUND ARTWORK (Contains background Katana artwork) */}
       <SectionBackground
         src={backgrounds.trial}
         alt="Katana Torii Custom Environment"
         overlayOpacity={0.04}
       />
 
-      {/* LOCAL CREAM READABILITY FIELD (LEFT CONTENT ONLY, NO VISIBLE EDGE) */}
+      {/* 2. LOCAL CREAM READABILITY FIELD (LEFT CONTENT ONLY, NO VISIBLE BOX EDGE) */}
       <div
         className="absolute inset-y-0 left-0 w-full md:w-[56%] pointer-events-none z-1"
         style={{
@@ -205,13 +112,13 @@ export const SelectionTrial3D = () => {
         }}
       />
 
-      {/* Right Side Sakura Trajectory Arc */}
+      {/* 3. Sakura Trajectory Particles */}
       <RightSakuraArc />
 
-      {/* WebGL 3D Katana & Scene */}
-      <Vertical3DScene mouseXVal={mouseX.get()} mouseYVal={mouseY.get()} />
+      {/* 4. WebGL Atmosphere Scene */}
+      <Vertical3DScene />
 
-      {/* MASTER GRID STAGE: LEFT 47% (TIMELINE + INFO) | RIGHT 53% (ARTWORK) */}
+      {/* 5. MASTER GRID STAGE: LEFT 47% (TIMELINE + INFO) | RIGHT 53% (BACKGROUND ARTWORK) */}
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         className="relative z-10 w-full h-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[47%_53%]"
@@ -386,10 +293,10 @@ export const SelectionTrial3D = () => {
         </div>
 
         {/* ==================================================
-            RIGHT 53% COLUMN: VISUAL ARTWORK & BREATHING SPACE
+            RIGHT 53% COLUMN: CLEAN BACKGROUND ARTWORK SPACE
         ================================================== */}
         <div className="hidden md:block relative h-full pointer-events-none">
-          {/* Right side visual artwork space for 3D Katana & Sakura Arc */}
+          {/* Unobscured right side showing clean background Katana artwork */}
         </div>
 
       </motion.div>
