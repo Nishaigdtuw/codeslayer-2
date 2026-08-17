@@ -1,181 +1,231 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, Sparkles } from '@react-three/drei';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SectionBackground } from '../SectionBackground';
-import { eventConfig } from '../../data/eventConfig';
 import { backgrounds } from '../../data/backgrounds';
-import { soundEngine } from '../../utils/audio';
-import { Activity, Cpu, ShieldAlert, Leaf, Wifi, Zap, X, ChevronRight } from 'lucide-react';
 
-const iconMap = {
-  Activity: Activity,
-  Cpu: Cpu,
-  ShieldAlert: ShieldAlert,
-  Leaf: Leaf,
-  Wifi: Wifi,
-  Zap: Zap,
-};
+// Central 3D Sculpture Component (Floating Katana Tsuba Guard & Orbital Ring Structure)
+const Central3DSculpture = ({ hoveredIndex, pointerX, pointerY }) => {
+  const outerRingRef = useRef();
+  const innerRingRef = useRef();
+  const bladeArcRef = useRef();
 
-export const Tracks3DHub = () => {
-  const [activeTrack, setActiveTrack] = useState(null);
-  const [hoveredIdx, setHoveredIdx] = useState(null);
+  useFrame((state, delta) => {
+    const t = state.clock.getElapsedTime();
+
+    if (outerRingRef.current) {
+      outerRingRef.current.rotation.z += delta * 0.25;
+      outerRingRef.current.rotation.y = Math.sin(t * 0.5) * 0.15;
+    }
+
+    if (innerRingRef.current) {
+      innerRingRef.current.rotation.z -= delta * 0.35;
+      innerRingRef.current.rotation.x = Math.cos(t * 0.7) * 0.2;
+    }
+
+    if (bladeArcRef.current) {
+      bladeArcRef.current.rotation.z = Math.sin(t * 0.8) * 0.3 - 0.2;
+      bladeArcRef.current.rotation.y += delta * 0.4;
+    }
+
+    // React to hovered track index
+    if (hoveredIndex !== null && outerRingRef.current) {
+      const targetZ = hoveredIndex * (Math.PI / 3);
+      outerRingRef.current.rotation.z += (targetZ - outerRingRef.current.rotation.z) * 0.05;
+    }
+  });
 
   return (
-    <section id="tracks" className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
-      
+    <group position={[1.5, 0, 0]} scale={[1.15, 1.15, 1.15]}>
+      {/* Outer Orbital Sculptural Ring */}
+      <group ref={outerRingRef}>
+        <mesh>
+          <torusGeometry args={[2.2, 0.04, 16, 100]} />
+          <meshStandardMaterial
+            color="#FFD700"
+            metalness={0.95}
+            roughness={0.2}
+          />
+        </mesh>
+      </group>
+
+      {/* Inner Katana Tsuba Guard Structure */}
+      <group ref={innerRingRef}>
+        <mesh>
+          <torusGeometry args={[1.5, 0.07, 16, 80]} />
+          <meshStandardMaterial
+            color="#641F1A"
+            metalness={0.8}
+            roughness={0.3}
+          />
+        </mesh>
+
+        <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.4, 0.4, 0.05, 24]} />
+          <meshStandardMaterial color="#271814" metalness={0.9} roughness={0.2} />
+        </mesh>
+      </group>
+
+      {/* Metallic Katana Blade Arc */}
+      <group ref={bladeArcRef}>
+        <mesh position={[0, 0, 0.1]} rotation={[0, 0, Math.PI / 4]}>
+          <boxGeometry args={[3.2, 0.06, 0.015]} />
+          <meshStandardMaterial
+            color="#ECECEC"
+            metalness={0.96}
+            roughness={0.15}
+          />
+        </mesh>
+      </group>
+    </group>
+  );
+};
+
+// WebGL Scene Container
+const Tracks3DScene = ({ hoveredIndex, mouseXVal, mouseYVal }) => {
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 5.8], fov: 45 }}
+      className="absolute inset-0 w-full h-full pointer-events-none z-2"
+      gl={{ antialias: true, alpha: true }}
+    >
+      <ambientLight intensity={0.95} />
+      <directionalLight position={[4, 7, 5]} intensity={2.2} color="#FFF5E0" />
+      <pointLight position={[-3, 2, 3]} intensity={1.5} color="#641F1A" />
+      <pointLight position={[3, -2, 3]} intensity={1.8} color="#FFD700" />
+
+      {/* Central 3D Sculpture */}
+      <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
+        <Central3DSculpture hoveredIndex={hoveredIndex} pointerX={mouseXVal} pointerY={mouseYVal} />
+      </Float>
+
+      {/* Sakura Sparkles */}
+      <Sparkles count={30} scale={7} size={2.2} speed={0.4} color="#FFD700" opacity={0.65} />
+      <Sparkles count={20} scale={9} size={1.8} speed={0.5} color="#641F1A" opacity={0.55} />
+    </Canvas>
+  );
+};
+
+// 6 Track Names Constellation Data
+const trackItems = [
+  { id: '01', title: 'Healthcare', depthZ: 25, position: 'top-12 left-4 sm:left-10' },
+  { id: '02', title: 'Artificial Intelligence & Machine Learning', depthZ: 55, position: 'top-20 right-10 sm:right-32' },
+  { id: '03', title: 'Web3 & Blockchain', depthZ: 30, position: 'top-[42%] left-2 sm:left-14' },
+  { id: '04', title: 'Sustainability', depthZ: 65, position: 'top-[46%] right-8 sm:right-28' },
+  { id: '05', title: 'Internet of Things (IoT)', depthZ: 40, position: 'bottom-12 left-6 sm:left-20' },
+  { id: '06', title: 'Open Innovation', depthZ: 50, position: 'bottom-8 right-12 sm:right-36' },
+];
+
+export const Tracks3DHub = () => {
+  const containerRef = useRef(null);
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  // Mouse Pointer Parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), { stiffness: 150, damping: 20 });
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  return (
+    <section
+      id="tracks"
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      style={{ height: 'clamp(520px, 68vh, 650px)' }}
+      className="relative my-4 px-4 sm:px-8 overflow-hidden select-none flex items-center justify-center"
+    >
       {/* TRACKS BACKGROUND: 04_fantasy_waterfall_realm.png */}
       <SectionBackground
         src={backgrounds.tracks}
         alt="Fantasy Waterfall Realm Tracks Atmosphere"
-        overlayOpacity={0.10}
+        overlayOpacity={0.06}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-6 rounded-xl bg-black/15 border border-cyan-400/30 backdrop-blur-sm shadow-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-300 font-bold px-4 py-1.5 bg-cyan-950/60 border border-cyan-400/40 rounded-full inline-block mb-4">
-            TRACKS 03 • 3D SPATIAL GATEWAY PORTALS
+      {/* Local Cream Readability Vignette */}
+      <div
+        className="absolute inset-y-0 left-0 w-full sm:w-[60%] pointer-events-none z-1"
+        style={{
+          background: 'radial-gradient(ellipse at left center, rgba(255,248,230,0.94) 0%, rgba(255,248,230,0.65) 45%, rgba(255,248,230,0) 80%)',
+        }}
+      />
+
+      {/* WebGL 3D Scene */}
+      <Tracks3DScene hoveredIndex={hoveredIdx} mouseXVal={mouseX.get()} mouseYVal={mouseY.get()} />
+
+      {/* 3D TRACK CONSTELLATION COMPOSITION CONTAINER */}
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        className="relative z-10 max-w-7xl mx-auto w-full h-full"
+      >
+        {/* COMPACT MINIMAL SECTION TITLE: TRACKS */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="absolute top-4 left-4 sm:left-10 z-30 flex items-center space-x-2"
+        >
+          <span className="font-display font-extrabold text-xl sm:text-2xl text-[#641F1A] tracking-wider uppercase">
+            TRACKS
           </span>
+          <div className="h-0.5 w-12 bg-[#641F1A]" />
+        </motion.div>
 
-          <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
-            CHOOSE YOUR <span className="text-cyan-400 text-glow-white">BREATHING TRACK</span>
-          </h2>
-
-          <p className="text-cyan-300 text-sm sm:text-lg font-bold mt-4 p-2 rounded-lg bg-cyan-950/50 border border-cyan-400/30 shadow-sm drop-shadow-md">
-            Hover over each gateway portal to activate its elemental domain.
-          </p>
-        </div>
-
-        {/* 6 3D Spatial Gateway Portals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {eventConfig.tracks.map((track, idx) => {
-            const IconComponent = iconMap[track.icon] || Zap;
+        {/* 6 ASYMMETRIC FLOATING SPATIAL TRACK NAMES (NO CARDS, NO DESCRIPTIONS) */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {trackItems.map((track, idx) => {
             const isHovered = hoveredIdx === idx;
+            const isOtherHovered = hoveredIdx !== null && !isHovered;
 
             return (
               <motion.div
                 key={track.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                onMouseEnter={() => {
-                  soundEngine.playFlameBurst();
-                  setHoveredIdx(idx);
-                }}
+                transition={{ duration: 0.4, delay: idx * 0.07 }}
+                onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
-                onClick={() => {
-                  soundEngine.playKatanaSlash();
-                  setActiveTrack(track);
+                style={{
+                  transform: `translateZ(${isHovered ? track.depthZ + 35 : isOtherHovered ? track.depthZ - 15 : track.depthZ}px)`,
                 }}
-                whileHover={{ scale: 1.05, y: -8 }}
-                className={`p-8 rounded-xl bg-black/20 border-2 ${
-                  isHovered ? 'border-cyan-400 shadow-[0_0_50px_rgba(6,182,212,0.8)]' : 'border-cyan-500/40 shadow-2xl'
-                } backdrop-blur-sm transition-all duration-300 cursor-pointer relative group text-left flex flex-col justify-between h-96 interactive-card`}
+                className={`absolute ${track.position} pointer-events-auto cursor-pointer transition-all duration-300 group`}
               >
-                {/* 3D Portal Gateway Ring */}
-                <div className="absolute top-6 right-6">
-                  <div
-                    className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
-                      isHovered ? 'border-cyan-400 bg-cyan-400/20 text-cyan-300 animate-spin-slow' : 'border-cyan-500/50 bg-cyan-950/50 text-cyan-400'
-                    } transition-all`}
-                  >
-                    <IconComponent className="w-7 h-7" />
-                  </div>
-                </div>
-
-                <div>
-                  <span className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-widest block mb-2">
-                    {track.tag}
+                <div className="flex items-baseline space-x-2">
+                  <span className="font-mono text-xs sm:text-sm font-black text-[#641F1A] opacity-75">
+                    {track.id}
                   </span>
-                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white mb-1 group-hover:text-cyan-300 transition-colors drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+                  <h3
+                    className={`font-display font-extrabold text-xl sm:text-3xl tracking-tight transition-all duration-300 ${
+                      isHovered
+                        ? 'text-[#641F1A] scale-105'
+                        : 'text-[#271814] group-hover:text-[#641F1A]'
+                    }`}
+                    style={{
+                      textShadow: isHovered
+                        ? '0 4px 14px rgba(255,255,255,0.95)'
+                        : '0 2px 8px rgba(255,255,255,0.85)',
+                    }}
+                  >
                     {track.title}
                   </h3>
-                  <p className="font-mono text-xs text-cyan-400 font-bold uppercase tracking-wider mb-4">
-                    {track.subtitle}
-                  </p>
-                  <p className="text-gray-100 text-xs sm:text-sm font-medium leading-relaxed line-clamp-3 drop-shadow-sm">
-                    {track.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-cyan-500/30 flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-gray-200 font-bold uppercase tracking-wider">
-                    {track.element}
-                  </span>
-                  <div className="flex items-center space-x-1 text-xs font-black text-cyan-400 group-hover:translate-x-1 transition-transform">
-                    <span>EXPLORE TRACK</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </div>
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-      </div>
-
-      {/* TRACK DETAILS MODAL */}
-      <AnimatePresence>
-        {activeTrack && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActiveTrack(null)}
-            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md p-4 flex items-center justify-center cursor-pointer"
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="max-w-2xl w-full rounded-xl bg-black/90 border-2 border-cyan-400 shadow-2xl p-8 text-left relative"
-            >
-              <button
-                onClick={() => setActiveTrack(null)}
-                className="absolute top-6 right-6 p-3 rounded-full bg-surface text-white hover:bg-crimson-600 transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              <span className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-widest block mb-2">
-                {activeTrack.tag}
-              </span>
-              <h3 className="font-display font-black text-3xl sm:text-5xl text-white mb-2">
-                {activeTrack.title}
-              </h3>
-              <p className="font-mono text-sm text-cyan-400 font-bold uppercase tracking-wider mb-6">
-                {activeTrack.subtitle}
-              </p>
-
-              <p className="text-gray-200 text-sm sm:text-base font-medium leading-relaxed mb-6">
-                {activeTrack.description}
-              </p>
-
-              <h4 className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-widest mb-3">
-                INSPIRATION PROJECT IDEAS
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                {activeTrack.ideas.map((idea) => (
-                  <div key={idea} className="p-3 rounded-lg bg-surface border border-gray-800 text-xs font-bold text-white">
-                    ⚡ {idea}
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href={eventConfig.links.registration}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => soundEngine.playKatanaSlash()}
-                className="w-full py-4 rounded-lg font-black text-sm text-black bg-cyan-400 hover:bg-cyan-300 transition-all flex items-center justify-center uppercase tracking-wider shadow-lg"
-              >
-                BUILD IN THIS TRACK
-              </a>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </motion.div>
     </section>
   );
 };
