@@ -21,16 +21,15 @@ export const EmberCanvas = () => {
     window.addEventListener('resize', handleResize);
 
     // Create particles (Embers and sparks)
-    const particleCount = window.innerWidth < 768 ? 35 : 85;
+    const particleCount = window.innerWidth < 768 ? 25 : 60;
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height + height,
       size: Math.random() * 2.5 + 0.8,
       speedY: Math.random() * 1.5 + 0.5,
       speedX: (Math.random() - 0.5) * 0.8,
-      opacity: Math.random() * 0.8 + 0.2,
+      opacity: Math.random() * 0.7 + 0.2,
       color: Math.random() > 0.3 ? '#FF2A55' : Math.random() > 0.5 ? '#E60033' : '#FFD700',
-      pulse: Math.random() * 0.05 + 0.01,
       angle: Math.random() * Math.PI * 2,
     }));
 
@@ -51,7 +50,7 @@ export const EmberCanvas = () => {
         ctx.globalAlpha = p.opacity;
         ctx.fillStyle = p.color;
         ctx.shadowColor = p.color;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 10;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -73,7 +72,7 @@ export const EmberCanvas = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-10 opacity-70"
+      className="fixed inset-0 pointer-events-none z-1 opacity-40"
     />
   );
 };

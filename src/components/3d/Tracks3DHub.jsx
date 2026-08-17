@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ParallaxBackground } from '../ParallaxBackground';
+import { SectionBackground } from '../SectionBackground';
 import { eventConfig } from '../../data/eventConfig';
 import { backgrounds } from '../../data/backgrounds';
 import { soundEngine } from '../../utils/audio';
@@ -20,20 +20,20 @@ export const Tracks3DHub = () => {
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
   return (
-    <section id="tracks" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
+    <section id="tracks" className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* TRACKS BACKGROUND: 04_fantasy_waterfall_realm.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.tracks}
-        altText="Fantasy Waterfall Realm Tracks Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.tracks}
+        alt="Fantasy Waterfall Realm Tracks Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-cyan-500/60 shadow-2xl backdrop-blur-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-300 font-bold px-4 py-2 bg-cyan-950/90 border border-cyan-400/50 rounded-full inline-block mb-4">
+        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/65 border-2 border-cyan-500/60 shadow-2xl backdrop-blur-md">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-300 font-bold px-4 py-2 bg-cyan-950/80 border border-cyan-400/50 rounded-full inline-block mb-4">
             REALM 03 • 3D SPATIAL GATEWAY PORTALS
           </span>
 
@@ -41,7 +41,7 @@ export const Tracks3DHub = () => {
             CHOOSE YOUR <span className="text-cyan-400 text-glow-white">BREATHING REALM</span>
           </h2>
 
-          <p className="text-cyan-300 text-sm sm:text-lg font-bold mt-4 p-3 rounded-xl bg-cyan-950/80 border border-cyan-400/40 shadow-sm">
+          <p className="text-cyan-300 text-sm sm:text-lg font-bold mt-4 p-3 rounded-xl bg-cyan-950/70 border border-cyan-400/40 shadow-sm">
             Hover over each gateway portal to activate its elemental domain.
           </p>
         </div>
@@ -69,9 +69,9 @@ export const Tracks3DHub = () => {
                   setActiveTrack(track);
                 }}
                 whileHover={{ scale: 1.05, y: -8 }}
-                className={`p-8 rounded-3xl bg-black/85 border-2 ${
+                className={`p-8 rounded-3xl bg-black/65 border-2 ${
                   isHovered ? 'border-cyan-400 shadow-[0_0_50px_rgba(6,182,212,0.8)]' : 'border-cyan-500/40 shadow-2xl'
-                } backdrop-blur-xl transition-all duration-300 cursor-pointer relative group text-left flex flex-col justify-between h-96 interactive-card`}
+                } backdrop-blur-md transition-all duration-300 cursor-pointer relative group text-left flex flex-col justify-between h-96 interactive-card`}
               >
                 {/* 3D Portal Gateway Ring */}
                 <div className="absolute top-6 right-6">
@@ -123,7 +123,7 @@ export const Tracks3DHub = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveTrack(null)}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl p-4 flex items-center justify-center cursor-pointer"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl p-4 flex items-center justify-center cursor-pointer"
           >
             <motion.div
               initial={{ scale: 0.9, y: 20 }}

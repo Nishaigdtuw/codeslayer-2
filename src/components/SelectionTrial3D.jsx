@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { eventConfig } from '../data/eventConfig';
 import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
@@ -8,20 +8,20 @@ import { Scroll, Download, FileText, CheckCircle2 } from 'lucide-react';
 
 export const SelectionTrial3D = () => {
   return (
-    <section id="ppt-round" className="py-28 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
+    <section id="ppt-round" className="relative min-h-screen py-28 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* SELECTION TRIAL BACKGROUND: 03_torii_cherry_blossom.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.trial}
-        altText="Torii Cherry Blossom Selection Trial Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.trial}
+        alt="Torii Cherry Blossom Selection Trial Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-pink-500/50 backdrop-blur-xl shadow-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/90 border border-pink-400/50 rounded-full inline-block mb-4">
+        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/65 border-2 border-pink-500/50 backdrop-blur-md shadow-2xl">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/80 border border-pink-400/50 rounded-full inline-block mb-4">
             ROUND 1 • ONLINE SELECTION TRIAL
           </span>
 
@@ -30,7 +30,7 @@ export const SelectionTrial3D = () => {
             <span className="text-pink-400 text-glow-white">UNLOCK THE BATTLEFIELD.</span>
           </h2>
 
-          <p className="text-white text-base sm:text-xl font-bold mt-4 p-4 rounded-xl bg-pink-950/80 border border-pink-400/40 shadow-md">
+          <p className="text-white text-base sm:text-xl font-bold mt-4 p-4 rounded-xl bg-pink-950/70 border border-pink-400/40 shadow-md">
             Only 65 teams will earn their ticket to the 36-hour battlefield at NIT Delhi.
           </p>
         </div>
@@ -44,7 +44,7 @@ export const SelectionTrial3D = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="p-8 rounded-3xl bg-black/85 border-2 border-crimson-500/60 shadow-2xl backdrop-blur-xl relative group text-left"
+            className="p-8 rounded-3xl bg-black/65 border-2 border-crimson-500/60 shadow-2xl backdrop-blur-md relative group text-left"
           >
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 rounded-2xl bg-crimson-600/30 text-crimson-bright border border-crimson-bright/40">
@@ -60,7 +60,7 @@ export const SelectionTrial3D = () => {
               Form your team of 2–4 members and register on Unstop before the final portal seal closes.
             </p>
 
-            <div className="p-4 rounded-xl bg-red-950/80 border border-red-500/40 font-mono text-xs text-yellow-300 font-bold space-y-1 mb-6">
+            <div className="p-4 rounded-xl bg-red-950/70 border border-red-500/40 font-mono text-xs text-yellow-300 font-bold space-y-1 mb-6">
               <div>OPENS: 20 AUGUST 2026</div>
               <div>CLOSES: 06 OCTOBER 2026</div>
             </div>
@@ -82,7 +82,7 @@ export const SelectionTrial3D = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-8 rounded-3xl bg-black/85 border-2 border-yellow-400/60 shadow-2xl backdrop-blur-xl relative group text-left"
+            className="p-8 rounded-3xl bg-black/65 border-2 border-yellow-400/60 shadow-2xl backdrop-blur-md relative group text-left"
           >
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 rounded-2xl bg-yellow-500/30 text-yellow-400 border border-yellow-400/40">
@@ -98,7 +98,7 @@ export const SelectionTrial3D = () => {
               Submit your idea deck adhering to the required 6-slide architecture guidelines.
             </p>
 
-            <div className="p-4 rounded-xl bg-yellow-950/80 border border-yellow-500/40 font-mono text-xs text-yellow-300 font-bold space-y-1 mb-6">
+            <div className="p-4 rounded-xl bg-yellow-950/70 border border-yellow-500/40 font-mono text-xs text-yellow-300 font-bold space-y-1 mb-6">
               <div>DEADLINE: 06 OCTOBER 2026</div>
               <div>FORMAT: PDF / GOOGLE SLIDES</div>
             </div>
@@ -118,7 +118,7 @@ export const SelectionTrial3D = () => {
         </div>
 
         {/* REQUIRED PPT SLIDE ARCHITECTURE PANEL */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-black/90 border-2 border-pink-500/60 shadow-2xl backdrop-blur-2xl text-left">
+        <div className="p-8 sm:p-12 rounded-3xl bg-black/75 border-2 border-pink-500/60 shadow-2xl backdrop-blur-md text-left">
           
           <h3 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight mb-2 drop-shadow-md">
             REQUIRED PPT SLIDE <span className="text-pink-400">ARCHITECTURE</span>
@@ -131,7 +131,7 @@ export const SelectionTrial3D = () => {
             {eventConfig.pptRequirements.map((req, idx) => (
               <div
                 key={req.title}
-                className="p-5 rounded-2xl bg-surface/90 border border-pink-500/30 hover:border-pink-400 transition-colors"
+                className="p-5 rounded-2xl bg-black/50 border border-pink-500/30 hover:border-pink-400 transition-colors backdrop-blur-sm"
               >
                 <div className="flex items-center space-x-2 font-mono text-xs text-pink-300 font-bold mb-2">
                   <CheckCircle2 className="w-4 h-4 text-pink-400" />

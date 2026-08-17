@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { eventConfig } from '../data/eventConfig';
 import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
@@ -8,16 +8,16 @@ import { Ticket, Sparkles, MapPin, Calendar } from 'lucide-react';
 
 export const FinalCtaSection = () => {
   return (
-    <section className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#0B0B0E]">
+    <section className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* FINAL CTA BACKGROUND: 09_sunrise_cliff_samurai.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.finalCTA}
-        altText="Sunrise Cliff Samurai Final CTA Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.finalCTA}
+        alt="Sunrise Cliff Samurai Final CTA Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center py-12">
+      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center py-12 w-full">
         
         {/* Section Pill Badge */}
         <motion.span
@@ -25,7 +25,7 @@ export const FinalCtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-black/90 border border-yellow-400/50 rounded-full inline-block mb-6 shadow-lg"
+          className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-black/80 border border-yellow-400/50 rounded-full inline-block mb-6 shadow-lg backdrop-blur-md"
         >
           SCENE 09 • THE FINAL CALL TO ARMS
         </motion.span>
@@ -45,7 +45,7 @@ export const FinalCtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-black/90 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest mb-8 shadow-[0_0_30px_rgba(234,179,8,0.9)]"
+          className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-black/80 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest mb-8 shadow-[0_0_30px_rgba(234,179,8,0.9)] backdrop-blur-md"
         >
           <Sparkles className="w-5 h-5 text-yellow-400 animate-spin" />
           <span>REGISTRATIONS: 20 AUGUST – 6 OCTOBER 2026</span>
@@ -57,7 +57,7 @@ export const FinalCtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-xl mx-auto p-6 rounded-3xl bg-black/85 border-2 border-amber-500/60 backdrop-blur-xl shadow-2xl space-y-3 mb-10 text-left"
+          className="max-w-xl mx-auto p-6 rounded-3xl bg-black/65 border-2 border-amber-500/60 backdrop-blur-md shadow-2xl space-y-3 mb-10 text-left"
         >
           <div className="flex items-center space-x-3 text-white font-bold text-sm sm:text-base">
             <Calendar className="w-5 h-5 text-yellow-400 flex-shrink-0" />

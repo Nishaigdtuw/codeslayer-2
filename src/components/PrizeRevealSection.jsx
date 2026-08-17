@@ -1,25 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
 import { Lock, Sparkles } from 'lucide-react';
 
 export const PrizeRevealSection = () => {
   return (
-    <section id="prizes" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
+    <section id="prizes" className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* PRIZE REVEAL BACKGROUND: 07_sealed_scroll_hall.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.prizes}
-        altText="Sealed Scroll Hall Prize Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.prizes}
+        alt="Sealed Scroll Hall Prize Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center w-full">
         
         {/* Section Pill Badge */}
-        <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-black/90 border border-yellow-400/50 rounded-full inline-block mb-6 shadow-lg">
+        <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-4 py-2 bg-black/80 border border-yellow-400/50 rounded-full inline-block mb-6 shadow-lg backdrop-blur-md">
           SCENE 07 • THE SEALED REWARD
         </span>
 
@@ -31,7 +31,7 @@ export const PrizeRevealSection = () => {
           transition={{ type: 'spring', stiffness: 150, damping: 15 }}
           onClick={() => soundEngine.playFlameBurst()}
           whileHover={{ scale: 1.08, rotate: 2 }}
-          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-black/90 border-4 border-yellow-400 flex items-center justify-center shadow-[0_0_60px_rgba(234,179,8,0.8)] cursor-pointer relative mb-8 group"
+          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-black/80 border-4 border-yellow-400 flex items-center justify-center shadow-[0_0_60px_rgba(234,179,8,0.8)] cursor-pointer relative mb-8 group backdrop-blur-md"
         >
           <Lock className="w-14 h-14 text-yellow-400 group-hover:scale-110 transition-transform" />
           <div className="absolute inset-0 rounded-full border-2 border-dashed border-yellow-300 animate-spin-slow opacity-60" />
@@ -47,7 +47,7 @@ export const PrizeRevealSection = () => {
         </div>
 
         {/* Supporting Copy */}
-        <div className="max-w-xl mx-auto p-6 rounded-3xl bg-black/85 border-2 border-yellow-400/50 backdrop-blur-xl shadow-2xl space-y-3">
+        <div className="max-w-xl mx-auto p-6 rounded-3xl bg-black/65 border-2 border-yellow-400/50 backdrop-blur-md shadow-2xl space-y-3">
           <p className="text-yellow-300 font-mono text-sm sm:text-base font-bold tracking-widest uppercase">
             "THE REWARDS REMAIN SEALED. FOR NOW."
           </p>

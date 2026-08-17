@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ParallaxBackground } from '../ParallaxBackground';
+import { motion } from 'framer-motion';
+import { SectionBackground } from '../SectionBackground';
 import { OrganiserLogos } from '../OrganiserLogos';
 import { eventConfig } from '../../data/eventConfig';
 import { backgrounds } from '../../data/backgrounds';
 import { soundEngine } from '../../utils/audio';
-import { Ticket, Compass, Flame, FastForward } from 'lucide-react';
+import { Ticket, Compass, Flame } from 'lucide-react';
 
 export const ExplosiveHero3D = () => {
-  const [step, setStep] = useState(10); // Default to 10 for instant crisp visual rendering of background 01_sunrise_samurai.png
   const [timeLeft, setTimeLeft] = useState({ days: 68, hours: 14, mins: 32, secs: 8 });
 
   // Countdown timer tick
@@ -22,24 +21,19 @@ export const ExplosiveHero3D = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const skipIntro = () => {
-    soundEngine.playKatanaSlash();
-    setStep(10);
-  };
-
   const titleLetters = ['C', 'O', 'D', 'E', 'S', 'L', 'A', 'Y', 'E', 'R'];
 
   return (
-    <section id="hero" className="relative w-full h-screen overflow-hidden bg-[#0B0B0E] flex flex-col justify-between">
+    <section id="hero" className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between">
       
-      {/* HERO BACKGROUND: 01_sunrise_samurai.png (RENDERED UNCONDITIONALLY) */}
-      <ParallaxBackground
-        imageSrc={backgrounds.hero}
-        altText="Sunrise Samurai Hero Atmosphere"
+      {/* FULL-VIEWPORT HERO BACKGROUND: 01_sunrise_samurai.png */}
+      <SectionBackground
+        src={backgrounds.hero}
+        alt="Sunrise Samurai Hero Atmosphere"
         overlayOpacity={0.10}
       />
 
-      {/* HERO MAIN CONTENT */}
+      {/* HERO CONTENT */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 pt-32 pb-12 flex-grow flex flex-col justify-between text-center">
         
         {/* Top Organiser Logos */}
@@ -51,7 +45,7 @@ export const ExplosiveHero3D = () => {
         <div className="my-auto space-y-4">
           
           {/* HIGH CONTRAST PILL BADGE */}
-          <div className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-black/90 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(234,179,8,0.9)] drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+          <div className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-black/75 border-2 border-yellow-400 text-yellow-300 font-mono text-xs sm:text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(234,179,8,0.9)] drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
             <Flame className="w-5 h-5 text-yellow-400 animate-bounce" />
             <span>36-HOUR NATIONAL HACKATHON</span>
           </div>
@@ -87,7 +81,7 @@ export const ExplosiveHero3D = () => {
             # 24 — 25 OCTOBER 2026 • NIT DELHI
           </p>
 
-          <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-black/80 border border-crimson-500/50 backdrop-blur-md">
+          <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-black/60 border border-crimson-500/50 backdrop-blur-md">
             <p className="text-white text-sm sm:text-base font-medium leading-relaxed drop-shadow-md">
               Online PPT Selection Trial followed by an intense 36-hour offline hackathon at National Institute of Technology Delhi.
             </p>
@@ -109,7 +103,7 @@ export const ExplosiveHero3D = () => {
             <a
               href="#tracks"
               onClick={() => soundEngine.playClick()}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-black/80 border-2 border-yellow-400/80 hover:border-yellow-400 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider shadow-lg"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-black/60 border-2 border-yellow-400/80 hover:border-yellow-400 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider shadow-lg backdrop-blur-md"
             >
               <Compass className="w-5 h-5 text-yellow-400" />
               <span>CHOOSE BATTLEFIELD</span>
@@ -118,7 +112,7 @@ export const ExplosiveHero3D = () => {
         </div>
 
         {/* Demon Countdown Timer Bar */}
-        <div className="max-w-xl mx-auto w-full p-4 rounded-2xl bg-black/90 border border-crimson-500/50 shadow-2xl backdrop-blur-md">
+        <div className="max-w-xl mx-auto w-full p-4 rounded-2xl bg-black/75 border border-crimson-500/50 shadow-2xl backdrop-blur-md">
           <div className="text-[10px] font-mono tracking-widest text-yellow-400 font-bold uppercase mb-2">
             TIME REMAINING UNTIL HACKATHON IGNITION
           </div>

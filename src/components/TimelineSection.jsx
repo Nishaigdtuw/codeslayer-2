@@ -1,26 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { eventConfig } from '../data/eventConfig';
 import { backgrounds } from '../data/backgrounds';
 import { Calendar, CheckCircle2 } from 'lucide-react';
 
 export const TimelineSection = () => {
   return (
-    <section id="timeline" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
+    <section id="timeline" className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* TIMELINE BACKGROUND: 05_sakura_mountain_path.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.timeline}
-        altText="Sakura Mountain Path Timeline Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.timeline}
+        alt="Sakura Mountain Path Timeline Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-pink-500/60 shadow-2xl backdrop-blur-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/90 border border-pink-400/50 rounded-full inline-block mb-4">
+        <div className="text-center max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-black/65 border-2 border-pink-500/60 shadow-2xl backdrop-blur-md">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/80 border border-pink-400/50 rounded-full inline-block mb-4">
             SCENE 05 • THE BATTLE ROAD
           </span>
 
@@ -41,7 +41,7 @@ export const TimelineSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 rounded-3xl bg-black/85 border-2 border-pink-400/50 shadow-2xl backdrop-blur-xl text-left flex flex-col justify-between"
+              className="p-6 rounded-3xl bg-black/65 border-2 border-pink-400/50 shadow-2xl backdrop-blur-md text-left flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">

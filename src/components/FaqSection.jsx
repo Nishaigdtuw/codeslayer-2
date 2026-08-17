@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { eventConfig } from '../data/eventConfig';
 import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
@@ -15,20 +15,20 @@ export const FaqSection = () => {
   };
 
   return (
-    <section id="faq" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
+    <section id="faq" className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* FAQ BACKGROUND: 08_moonlit_sakura_courtyard.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.faq}
-        altText="Moonlit Sakura Courtyard FAQ Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.faq}
+        alt="Moonlit Sakura Courtyard FAQ Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto w-full">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 p-8 rounded-3xl bg-black/85 border-2 border-pink-500/60 shadow-2xl backdrop-blur-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/90 border border-pink-400/50 rounded-full inline-block mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16 p-8 rounded-3xl bg-black/65 border-2 border-pink-500/60 shadow-2xl backdrop-blur-md">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-2 bg-pink-950/80 border border-pink-400/50 rounded-full inline-block mb-4">
             SCENE 08 • FREQUENTLY ASKED QUESTIONS
           </span>
 
@@ -52,7 +52,7 @@ export const FaqSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="rounded-2xl bg-black/85 border-2 border-pink-400/40 backdrop-blur-xl overflow-hidden shadow-2xl text-left"
+                className="rounded-2xl bg-black/65 border-2 border-pink-400/40 backdrop-blur-md overflow-hidden shadow-2xl text-left"
               >
                 <button
                   onClick={() => toggleFaq(idx)}

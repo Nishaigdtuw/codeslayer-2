@@ -1,20 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { backgrounds } from '../data/backgrounds';
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-32 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#0B0B0E]">
+    <section id="about" className="relative min-h-screen py-32 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
       {/* ABOUT BACKGROUND: 02_bamboo_forest.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.about}
-        altText="Bright Moonlit Bamboo Forest Atmosphere"
-        overlayOpacity={0.15}
+      <SectionBackground
+        src={backgrounds.about}
+        alt="Bright Moonlit Bamboo Forest Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="katana-divider mb-16" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -25,9 +25,9 @@ export const AboutSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-5 text-left p-8 rounded-3xl bg-black/80 border-2 border-emerald-500/50 backdrop-blur-xl shadow-2xl"
+            className="lg:col-span-5 text-left p-8 rounded-3xl bg-black/60 border-2 border-emerald-500/50 backdrop-blur-md shadow-2xl"
           >
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-emerald-300 font-bold px-4 py-2 bg-emerald-950/90 border border-emerald-400/50 rounded-full inline-block mb-4 shadow-md">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-emerald-300 font-bold px-4 py-2 bg-emerald-950/80 border border-emerald-400/50 rounded-full inline-block mb-4 shadow-md">
               REALM 02 • THE BATTLE
             </span>
 
@@ -47,7 +47,7 @@ export const AboutSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-7 space-y-6 text-left p-8 rounded-3xl bg-black/80 border-2 border-emerald-400/50 backdrop-blur-xl shadow-2xl"
+            className="lg:col-span-7 space-y-6 text-left p-8 rounded-3xl bg-black/60 border-2 border-emerald-400/50 backdrop-blur-md shadow-2xl"
           >
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-md">
               ENTER THE <span className="text-emerald-400 text-glow-white">BATTLEFIELD</span> OF INNOVATION

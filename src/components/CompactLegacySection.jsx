@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { eventConfig } from '../data/eventConfig';
 import { backgrounds } from '../data/backgrounds';
 import { soundEngine } from '../utils/audio';
-import { ParallaxBackground } from './ParallaxBackground';
+import { SectionBackground } from './SectionBackground';
 import { Maximize2, X } from 'lucide-react';
 
 export const CompactLegacySection = () => {
@@ -11,21 +11,21 @@ export const CompactLegacySection = () => {
   const legacyData = eventConfig.legacy;
 
   return (
-    <section id="legacy" className="py-24 px-4 sm:px-8 relative z-20 overflow-hidden bg-[#070709]">
+    <section id="legacy" className="relative min-h-screen py-24 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
       
-      {/* LEGACY BACKGROUND: 05_sakura_mountain_path.png */}
-      <ParallaxBackground
-        imageSrc={backgrounds.legacy}
-        altText="Previous Edition Atmosphere"
-        overlayOpacity={0.15}
+      {/* SCENE 06 BACKGROUND: 06_bright_campus_scene.png */}
+      <SectionBackground
+        src={backgrounds.organisers}
+        alt="Bright Campus Scene Atmosphere"
+        overlayOpacity={0.10}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 p-8 rounded-3xl bg-black/95 border-2 border-crimson-500/70 shadow-2xl backdrop-blur-2xl text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 p-8 rounded-3xl bg-black/75 border-2 border-crimson-500/70 shadow-2xl backdrop-blur-md text-left">
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-3.5 py-1.5 bg-red-950/90 border border-yellow-400/50 rounded-full inline-block mb-3">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-300 font-bold px-3.5 py-1.5 bg-red-950/80 border border-yellow-400/50 rounded-full inline-block mb-3">
               SCENE 06 • PREVIOUS EDITION
             </span>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight">
@@ -61,7 +61,7 @@ export const CompactLegacySection = () => {
                 setSelectedPhoto(photo);
               }}
               whileHover={{ scale: 1.04 }}
-              className="rounded-2xl overflow-hidden border-2 border-crimson-500/40 shadow-2xl cursor-pointer relative group bg-black/90 text-left"
+              className="rounded-2xl overflow-hidden border-2 border-crimson-500/40 shadow-2xl cursor-pointer relative group bg-black/65 text-left"
             >
               <div className="h-56 overflow-hidden relative">
                 <img
@@ -75,7 +75,7 @@ export const CompactLegacySection = () => {
                 </div>
               </div>
 
-              <div className="p-4 bg-black/95 backdrop-blur-md">
+              <div className="p-4 bg-black/80 backdrop-blur-md">
                 <span className="font-mono text-[10px] text-yellow-400 font-bold uppercase tracking-widest block mb-1">
                   {photo.timestamp}
                 </span>
@@ -95,7 +95,7 @@ export const CompactLegacySection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedPhoto(null)}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl p-4 flex items-center justify-center cursor-pointer"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl p-4 flex items-center justify-center cursor-pointer"
           >
             <motion.div
               initial={{ scale: 0.9 }}
