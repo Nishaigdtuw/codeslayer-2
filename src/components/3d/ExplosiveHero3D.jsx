@@ -8,32 +8,8 @@ import { soundEngine } from '../../utils/audio';
 import { Ticket, Compass, Flame, FastForward } from 'lucide-react';
 
 export const ExplosiveHero3D = () => {
-  const [step, setStep] = useState(0); // 0: black, 1: reflection, 2: rotate & moon, 3: katana slash impact, 4: image split, 5: camera pass-through, 6: CODESLAYER letters, 7: 2.0 rotate, 8: tagline, 9: date & venue reveal, 10: complete
+  const [step, setStep] = useState(10); // Default to 10 for instant crisp visual rendering of background 01_sunrise_samurai.png
   const [timeLeft, setTimeLeft] = useState({ days: 68, hours: 14, mins: 32, secs: 8 });
-
-  useEffect(() => {
-    const sequence = [
-      { t: 300, s: 1 },   // 0.30s metallic blade reflection
-      { t: 700, s: 2 },   // 0.70s blade rotate & red moon fade
-      { t: 1000, s: 3 },  // 1.00s HUGE KATANA SLASH IMPACT FLASH
-      { t: 1150, s: 4 },  // 1.15s black screen splits into 3D image planes
-      { t: 1450, s: 5 },  // 1.45s camera rushes THROUGH slash opening
-      { t: 1700, s: 6 },  // 1.70s CODESLAYER letters fly from Z-depth
-      { t: 2200, s: 7 },  // 2.20s 3D 2.0 rotates into position
-      { t: 2450, s: 8 },  // 2.45s second streak reveals tagline
-      { t: 2700, s: 9 },  // 2.70s date & NIT DELHI reveal
-      { t: 3400, s: 10 }, // 3.40s complete, CTAs & Navbar active
-    ];
-
-    const timers = sequence.map(({ t, s }) =>
-      setTimeout(() => {
-        setStep(s);
-        if (s === 3 || s === 8) soundEngine.playKatanaSlash();
-      }, t)
-    );
-
-    return () => timers.forEach(clearTimeout);
-  }, []);
 
   // Countdown timer tick
   useEffect(() => {
@@ -56,95 +32,12 @@ export const ExplosiveHero3D = () => {
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden bg-[#0B0B0E] flex flex-col justify-between">
       
-      {/* HERO BACKGROUND: 01_sunrise_samurai.png */}
-      {step >= 4 && (
-        <ParallaxBackground
-          imageSrc={backgrounds.hero}
-          altText="Sunrise Samurai Hero Atmosphere"
-          overlayOpacity={0.15}
-        />
-      )}
-
-      {/* 0.00s–3.40s INSANE OPENING CHOREOGRAPHY OVERLAY */}
-      <AnimatePresence>
-        {step < 10 && (
-          <div className="absolute inset-0 z-30 pointer-events-auto flex flex-col items-center justify-center overflow-hidden">
-            
-            {/* Step 0–3: Black Screen */}
-            {step < 4 && <div className="absolute inset-0 bg-black" />}
-
-            {/* Step 1: Blade Reflection */}
-            {step === 1 && (
-              <motion.div
-                initial={{ opacity: 0, scaleY: 0 }}
-                animate={{ opacity: 1, scaleY: 1 }}
-                className="w-1.5 h-80 bg-gradient-to-b from-transparent via-slate-100 to-transparent shadow-[0_0_40px_#FFFFFF]"
-              />
-            )}
-
-            {/* Step 2: Blade Rotation & Red Moon */}
-            {step === 2 && (
-              <div className="relative flex items-center justify-center">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 0.8, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-64 h-64 rounded-full bg-crimson-bright/40 filter blur-3xl"
-                />
-                <motion.div
-                  initial={{ rotate: -45, scale: 0.8 }}
-                  animate={{ rotate: 0, scale: 1.1 }}
-                  className="w-2 h-96 bg-gradient-to-b from-slate-200 via-white to-crimson-bright shadow-[0_0_50px_#FF2A55]"
-                />
-              </div>
-            )}
-
-            {/* Step 3: HUGE Katana Slash Impact Flash & RGB Split */}
-            {step === 3 && (
-              <>
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.1 }}
-                  className="absolute inset-0 bg-white"
-                />
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1.8 }}
-                  transition={{ duration: 0.15 }}
-                  className="w-[180vw] h-8 bg-gradient-to-r from-transparent via-crimson-bright to-transparent transform -rotate-45 shadow-[0_0_80px_#FF2A55]"
-                />
-              </>
-            )}
-
-            {/* Step 4 & 5: 3D Image Planes Split & Camera Pass-Through */}
-            {(step === 4 || step === 5) && (
-              <div className="absolute inset-0 flex flex-col pointer-events-none">
-                <motion.div
-                  initial={{ y: 0, z: 0 }}
-                  animate={{ y: '-50vh', z: -200 }}
-                  transition={{ duration: 0.4 }}
-                  className="h-1/2 w-full bg-black border-b-2 border-crimson-bright shadow-2xl"
-                />
-                <motion.div
-                  initial={{ y: 0, z: 0 }}
-                  animate={{ y: '50vh', z: 200 }}
-                  transition={{ duration: 0.4 }}
-                  className="h-1/2 w-full bg-black border-t-2 border-crimson-bright shadow-2xl"
-                />
-              </div>
-            )}
-
-            <button
-              onClick={skipIntro}
-              className="absolute bottom-12 px-6 py-2.5 rounded-full bg-black/90 border-2 border-yellow-400/80 text-xs font-mono text-yellow-300 flex items-center space-x-2 shadow-[0_0_20px_rgba(234,179,8,0.8)] z-40"
-            >
-              <span>SKIP INTRO</span>
-              <FastForward className="w-4 h-4 text-yellow-400" />
-            </button>
-          </div>
-        )}
-      </AnimatePresence>
+      {/* HERO BACKGROUND: 01_sunrise_samurai.png (RENDERED UNCONDITIONALLY) */}
+      <ParallaxBackground
+        imageSrc={backgrounds.hero}
+        altText="Sunrise Samurai Hero Atmosphere"
+        overlayOpacity={0.10}
+      />
 
       {/* HERO MAIN CONTENT */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 pt-32 pb-12 flex-grow flex flex-col justify-between text-center">
@@ -168,28 +61,16 @@ export const ExplosiveHero3D = () => {
             {titleLetters.map((char, idx) => (
               <motion.span
                 key={idx}
-                initial={{ opacity: 0, z: -300, y: (idx % 2 === 0 ? 50 : -50) }}
-                animate={{
-                  opacity: step >= 6 ? 1 : 0,
-                  z: step >= 6 ? 0 : -300,
-                  y: step >= 6 ? 0 : (idx % 2 === 0 ? 50 : -50)
-                }}
-                transition={{ duration: 0.4, delay: idx * 0.04 }}
+                initial={{ opacity: 1, z: 0, y: 0 }}
                 className="font-display text-5xl sm:text-9xl font-black text-white tracking-tight leading-none drop-shadow-[0_6px_24px_rgba(0,0,0,1)] inline-block"
               >
                 {char}
               </motion.span>
             ))}
 
-            {/* Huge 3D 2.0 Rotate in */}
+            {/* 3D 2.0 Badge */}
             <motion.span
-              initial={{ rotateY: 180, scale: 0.2, opacity: 0 }}
-              animate={{
-                rotateY: step >= 7 ? 0 : 180,
-                scale: step >= 7 ? 1 : 0.2,
-                opacity: step >= 7 ? 1 : 0
-              }}
-              transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+              initial={{ rotateY: 0, scale: 1, opacity: 1 }}
               className="font-mono text-3xl sm:text-5xl text-yellow-400 ml-2 font-black inline-block"
             >
               2.0
@@ -197,23 +78,14 @@ export const ExplosiveHero3D = () => {
           </div>
 
           {/* Tagline Reveal */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: step >= 8 ? 1 : 0, y: step >= 8 ? 0 : 20 }}
-            className="font-mono text-xs sm:text-base font-bold text-crimson-bright tracking-[0.3em] uppercase drop-shadow-md"
-          >
+          <p className="font-mono text-xs sm:text-base font-bold text-crimson-bright tracking-[0.3em] uppercase drop-shadow-md">
             CODE • BUILD • SLAY
-          </motion.p>
+          </p>
 
           {/* Date & NIT Delhi Reveal */}
-          <motion.p
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: step >= 9 ? 0 : 30, opacity: step >= 9 ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
-            className="font-display text-xl sm:text-3xl font-extrabold text-yellow-300 tracking-wider drop-shadow-[0_4px_16px_rgba(0,0,0,1)]"
-          >
+          <p className="font-display text-xl sm:text-3xl font-extrabold text-yellow-300 tracking-wider drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
             # 24 — 25 OCTOBER 2026 • NIT DELHI
-          </motion.p>
+          </p>
 
           <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-black/80 border border-crimson-500/50 backdrop-blur-md">
             <p className="text-white text-sm sm:text-base font-medium leading-relaxed drop-shadow-md">
