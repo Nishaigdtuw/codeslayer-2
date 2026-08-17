@@ -12,6 +12,7 @@ export const BattleMapNav = () => {
     { id: '04', name: 'LEGACY', href: '#legacy' },
     { id: '05', name: 'FINALE', href: '#finale' },
     { id: '06', name: 'REWARDS', href: '#prizes' },
+    { id: '07', name: 'ALLIES', href: '#sponsors' },
   ];
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export const BattleMapNav = () => {
       <div className="w-2 h-4 bg-crimson-bright rounded-t shadow-[0_0_10px_#FF2A55]" />
 
       {/* Vertical Katana Blade Navigation Spine */}
-      <div className="relative w-0.5 bg-gradient-to-b from-crimson-bright via-crimson-600 to-gray-800 my-1 py-4 flex flex-col items-center space-y-8">
+      <div className="relative w-0.5 bg-gradient-to-b from-crimson-bright via-crimson-600 to-gray-800 my-1 py-3 flex flex-col items-center space-y-6">
         {nodes.map((node) => {
           const isActive = activeSection === node.id;
 

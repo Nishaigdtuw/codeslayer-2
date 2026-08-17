@@ -13,6 +13,7 @@ import { Tracks3DHub } from './components/3d/Tracks3DHub';
 import { TimelineSection } from './components/TimelineSection';
 import { CompactLegacySection } from './components/CompactLegacySection';
 import { PrizeRevealSection } from './components/PrizeRevealSection';
+import { SponsorsSection } from './components/SponsorsSection';
 import { FaqSection } from './components/FaqSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
@@ -51,6 +52,7 @@ export function App() {
           <TimelineSection />
           <CompactLegacySection />
           <PrizeRevealSection />
+          <SponsorsSection />
           <FaqSection />
           <FinalCtaSection />
         </main>

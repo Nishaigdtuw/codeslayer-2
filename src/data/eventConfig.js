@@ -109,9 +109,27 @@ export const eventConfig = {
   ],
   prizes: {
     title: "PRIZE POOL",
-    subtitle: "The rewards remain sealed. For now.",
-    statusNote: "Prize Money Revealing Soon",
+    subtitle: "Main Tournament & Special Track Awards",
+    mainTiers: [
+      { name: "CHAMPION", title: "Sun Breathing Master", icon: "👑" },
+      { name: "RUNNER-UP", title: "Moon Breathing Adept", icon: "⚔️" },
+      { name: "2ND RUNNER-UP", title: "Beast Breathing Challenger", icon: "🔥" }
+    ],
+    specialCategories: [
+      "Mystery Winner",
+      "All Girls Team",
+      "Web3 Master",
+      "AI/ML Master",
+      "IoT Master"
+    ]
   },
+  sponsors: [
+    { tier: "Diamond Sponsor", logo: "ElevenLabs", desc: "AI Voice & Audio Technology Partner" },
+    { tier: "Platform Partner", logo: "Unstop / Devfolio", desc: "Official Hackathon Registration & Judging Portal" },
+    { tier: "Golden Sponsor", logo: "Market Mafiaa", desc: "Web3 & Community Growth Partner" },
+    { tier: "Institutional Partner", logo: "NIT Delhi", desc: "Host Venue & Academic Partner" },
+    { tier: "Community Partner", logo: "DevSphere", desc: "Developer Ecosystem & Organising Community" }
+  ],
   pptRequirements: [
     { title: "PROBLEM STATEMENT", desc: "Define the exact real-world problem, target users, and existing market gaps clearly." },
     { title: "PROPOSED SOLUTION", desc: "Explain your core idea, key feature set, and unique value proposition." },
