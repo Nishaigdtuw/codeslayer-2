@@ -1,150 +1,160 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SectionBackground } from './SectionBackground';
-import { eventConfig } from '../data/eventConfig';
 import { backgrounds } from '../data/backgrounds';
-import { soundEngine } from '../utils/audio';
-import { Scroll, Download, FileText, CheckCircle2 } from 'lucide-react';
+import { MapPin, Clock, Calendar, FileText, Trophy } from 'lucide-react';
 
 export const SelectionTrial3D = () => {
   return (
-    <section id="ppt-round" className="relative min-h-screen py-28 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
+    <section id="ppt-round" className="relative min-h-[140vh] sm:min-h-[160vh] py-28 px-4 sm:px-8 overflow-hidden flex flex-col justify-between select-none">
       
-      {/* SELECTION TRIAL BACKGROUND: 03_torii_cherry_blossom.png */}
+      {/* BACKGROUND: 03_torii_cherry_blossom.png?v=cream2 */}
       <SectionBackground
         src={backgrounds.trial}
-        alt="Torii Cherry Blossom Selection Trial Atmosphere"
-        overlayOpacity={0.10}
+        alt="Torii Cherry Blossom Two Gates Journey"
+        overlayOpacity={0.08}
       />
 
-      {/* Subtle Central Readability Gradient */}
-      <div className="absolute inset-0 bg-radial-vignette opacity-40 pointer-events-none z-0" />
+      {/* Atmospheric Central Readability Vignette */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/35 pointer-events-none z-0" />
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
+      {/* ANIMATED GLOWING KATANA ENERGY PATH CONNECTING GATE 01 TO GATE 02 */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none z-1 hidden sm:block opacity-60">
+        <defs>
+          <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FF2A55" stopOpacity="0.8" />
+            <stop offset="50%" stopColor="#FFD700" stopOpacity="1" />
+            <stop offset="100%" stopColor="#FF2A55" stopOpacity="0.8" />
+          </linearGradient>
+        </defs>
+        <motion.path
+          d="M 200 250 C 400 450, 500 650, 850 900"
+          fill="none"
+          stroke="url(#pathGradient)"
+          strokeWidth="3"
+          strokeDasharray="8 8"
+          initial={{ pathLength: 0, opacity: 0.2 }}
+          whileInView={{ pathLength: 1, opacity: 0.8 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1.8, ease: 'easeInOut' }}
+        />
+      </svg>
+
+      <div className="relative z-10 max-w-7xl mx-auto w-full flex-grow flex flex-col justify-between py-12">
         
-        {/* Section Header — DIRECTLY OVER IMAGERY WITH TEXT SHADOW */}
-        <div className="text-center max-w-4xl mx-auto mb-16 p-6 rounded-xl bg-black/15 border border-pink-400/30 backdrop-blur-sm shadow-2xl">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-4 py-1.5 bg-pink-950/60 border border-pink-400/40 rounded-full inline-block mb-4">
-            ROUND 1 • ONLINE SELECTION TRIAL
+        {/* SECTION CATEGORY HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-left mb-12"
+        >
+          <div className="katana-divider mb-6" />
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-pink-300 font-bold px-3.5 py-1.5 bg-black/40 border border-pink-400/40 rounded-full inline-block backdrop-blur-sm shadow-md">
+            THE TWO GATES • SELECTION & FINALE
           </span>
+        </motion.div>
 
-          <h2 className="font-display text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
-            SUBMIT YOUR PITCH. <br />
-            <span className="text-pink-400 text-glow-white">UNLOCK THE BATTLEFIELD.</span>
-          </h2>
-
-          <p className="text-white text-base sm:text-xl font-bold mt-4 p-3 rounded-lg bg-pink-950/40 border border-pink-400/30 shadow-md drop-shadow-md">
-            Only 65 teams will earn their ticket to the 36-hour battlefield at NIT Delhi.
-          </p>
-        </div>
-
-        {/* Floating Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {/* DIAGONAL SPATIAL JOURNEY CONTAINER */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16 items-start my-auto">
           
-          {/* Scroll 1: Registration Window */}
+          {/* ==================================================
+              ROUND 01 — THE FIRST GATE (UPPER LEFT DIAGONAL)
+          ================================================== */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60, y: 30 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="p-8 rounded-xl bg-black/20 border border-crimson-500/50 shadow-2xl backdrop-blur-sm relative group text-left"
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-6 relative text-left p-8 sm:p-12 rounded-xl bg-black/15 border border-pink-400/30 backdrop-blur-sm shadow-2xl group overflow-hidden"
           >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="p-3 rounded-xl bg-crimson-600/30 text-crimson-bright border border-crimson-bright/40">
-                <Scroll className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="font-mono text-xs text-yellow-300 font-bold uppercase tracking-widest block">STEP 01</span>
-                <h3 className="font-display font-black text-2xl text-white drop-shadow-md">REGISTRATION WINDOW</h3>
-              </div>
+            {/* OVERSIZED WATERMARK: 01 */}
+            <span className="absolute -top-10 -right-6 font-display font-black text-9xl sm:text-[14rem] text-pink-500/10 pointer-events-none select-none">
+              01
+            </span>
+
+            {/* SMALL LABEL */}
+            <div className="flex items-center space-x-2 font-mono text-xs text-pink-300 font-bold tracking-widest uppercase mb-4">
+              <FileText className="w-4 h-4 text-pink-400" />
+              <span>ROUND 01</span>
             </div>
 
-            <p className="text-gray-100 text-sm font-medium mb-6 drop-shadow-sm">
-              Form your team of 2–4 members and register on Unstop before the final portal seal closes.
-            </p>
+            {/* MAIN HEADING */}
+            <h3 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-none mb-6 drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
+              PPT <br />
+              <span className="text-pink-400 text-glow-white">SUBMISSION</span>
+            </h3>
 
-            <div className="p-3 rounded-lg bg-red-950/50 border border-red-500/40 font-mono text-xs text-yellow-300 font-bold space-y-1 mb-6">
-              <div>OPENS: 20 AUGUST 2026</div>
-              <div>CLOSES: 06 OCTOBER 2026</div>
+            {/* DEADLINE COMPOSITION */}
+            <div className="pt-6 border-t border-pink-500/30 flex items-center space-x-6">
+              <div className="font-display font-black text-6xl sm:text-8xl text-yellow-300 tracking-tighter drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+                10
+              </div>
+              <div className="flex flex-col font-mono text-xs sm:text-sm font-black tracking-widest uppercase leading-tight text-left">
+                <span className="text-pink-300 font-bold">DEADLINE</span>
+                <span className="text-white text-base sm:text-xl font-extrabold">OCTOBER 2026</span>
+              </div>
             </div>
-
-            <a
-              href={eventConfig.links.registration}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => soundEngine.playKatanaSlash()}
-              className="w-full py-4 rounded-lg font-black text-sm text-white bg-gradient-to-r from-crimson-600 to-crimson-bright hover:scale-102 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider shadow-lg"
-            >
-              <span>REGISTER ON UNSTOP</span>
-            </a>
           </motion.div>
 
-          {/* Scroll 2: PPT Submission */}
+          {/* SPATIAL GAP FOR DIAGONAL TRAVEL */}
+          <div className="hidden lg:block lg:col-span-1" />
+
+          {/* ==================================================
+              ROUND 02 — THE FINAL GATE (LOWER RIGHT DIAGONAL)
+          ================================================== */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 60, y: 50 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-8 rounded-xl bg-black/20 border border-yellow-400/50 shadow-2xl backdrop-blur-sm relative group text-left"
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="lg:col-span-5 lg:mt-32 relative text-left p-8 sm:p-12 rounded-xl bg-black/25 border-2 border-yellow-400/60 backdrop-blur-sm shadow-[0_0_50px_rgba(234,179,8,0.25)] group overflow-hidden"
           >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="p-3 rounded-xl bg-yellow-500/30 text-yellow-400 border border-yellow-400/40">
-                <FileText className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="font-mono text-xs text-yellow-300 font-bold uppercase tracking-widest block">STEP 02</span>
-                <h3 className="font-display font-black text-2xl text-white drop-shadow-md">PPT SUBMISSION</h3>
-              </div>
+            {/* OVERSIZED WATERMARK: 02 */}
+            <span className="absolute -top-10 -right-6 font-display font-black text-9xl sm:text-[14rem] text-yellow-400/10 pointer-events-none select-none">
+              02
+            </span>
+
+            {/* SMALL LABEL */}
+            <div className="flex items-center space-x-2 font-mono text-xs text-yellow-300 font-bold tracking-widest uppercase mb-4">
+              <Trophy className="w-4 h-4 text-yellow-400 animate-pulse" />
+              <span>ROUND 02 • THE ARRIVAL</span>
             </div>
 
-            <p className="text-gray-100 text-sm font-medium mb-6 drop-shadow-sm">
-              Submit your idea deck adhering to the required 6-slide architecture guidelines.
-            </p>
+            {/* MAIN HEADING */}
+            <h3 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-none mb-6 drop-shadow-[0_6px_24px_rgba(0,0,0,1)]">
+              GRAND <br />
+              <span className="text-yellow-400 text-glow-white">FINALE</span>
+            </h3>
 
-            <div className="p-3 rounded-lg bg-yellow-950/50 border border-yellow-500/40 font-mono text-xs text-yellow-300 font-bold space-y-1 mb-6">
-              <div>DEADLINE: 06 OCTOBER 2026</div>
-              <div>FORMAT: PDF / GOOGLE SLIDES</div>
-            </div>
-
-            <a
-              href={eventConfig.links.pptGuidelines}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => soundEngine.playClick()}
-              className="w-full py-4 rounded-lg font-black text-sm text-black bg-yellow-400 hover:bg-yellow-300 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider shadow-lg"
-            >
-              <Download className="w-4 h-4 text-black" />
-              <span>DOWNLOAD OFFICIAL TEMPLATE</span>
-            </a>
-          </motion.div>
-
-        </div>
-
-        {/* REQUIRED PPT SLIDE ARCHITECTURE PANEL */}
-        <div className="p-6 sm:p-10 rounded-xl bg-black/20 border border-pink-400/40 shadow-2xl backdrop-blur-sm text-left">
-          
-          <h3 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight mb-2 drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-            REQUIRED PPT SLIDE <span className="text-pink-400">ARCHITECTURE</span>
-          </h3>
-          <p className="text-gray-100 text-sm sm:text-base font-medium mb-8 drop-shadow-sm">
-            Your Round 1 presentation deck must clearly cover the following 6 pillars:
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {eventConfig.pptRequirements.map((req, idx) => (
-              <div
-                key={req.title}
-                className="p-5 rounded-lg bg-black/30 border border-pink-500/30 hover:border-pink-400 transition-colors backdrop-blur-sm"
-              >
-                <div className="flex items-center space-x-2 font-mono text-xs text-pink-300 font-bold mb-2">
-                  <CheckCircle2 className="w-4 h-4 text-pink-400" />
-                  <span>SLIDE 0{idx + 1}</span>
+            {/* DATES & VENUE POSTER COMPOSITION */}
+            <div className="space-y-4 pt-6 border-t border-yellow-500/40">
+              
+              <div className="flex items-center space-x-4">
+                <div className="font-display font-black text-5xl sm:text-7xl text-yellow-300 tracking-tighter drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+                  24–25
                 </div>
-                <h4 className="font-display font-bold text-base text-white mb-1 drop-shadow-md">{req.title}</h4>
-                <p className="text-xs text-gray-200 font-medium leading-relaxed">{req.desc}</p>
+                <div className="flex flex-col font-mono text-xs sm:text-sm font-black tracking-widest uppercase leading-tight text-left">
+                  <span className="text-yellow-400 font-bold">OCTOBER</span>
+                  <span className="text-gray-200">2026</span>
+                </div>
               </div>
-            ))}
-          </div>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-bold text-gray-100 pt-2">
+                <div className="flex items-center space-x-1.5 px-3 py-1 bg-yellow-500/20 border border-yellow-400/40 rounded-md">
+                  <MapPin className="w-4 h-4 text-amber-400" />
+                  <span>NIT DELHI</span>
+                </div>
+
+                <div className="flex items-center space-x-1.5 px-3 py-1 bg-crimson-600/30 border border-crimson-bright/40 rounded-md text-crimson-bright">
+                  <Clock className="w-4 h-4 text-crimson-bright" />
+                  <span>36 HOURS</span>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
 
         </div>
 
