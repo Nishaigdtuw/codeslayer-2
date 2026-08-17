@@ -5,72 +5,84 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SectionBackground } from './SectionBackground';
 import { backgrounds } from '../data/backgrounds';
 
-// Stylized 3D Katana for Right 54% Visual Side
+// Stylized 3D Katana for Right Visual Side (Positioned x: 62%–90%)
 const RightCinematicKatana = ({ pointerX, pointerY }) => {
   const katanaRef = useRef();
   const ribbonRef = useRef();
+  const lightSweepRef = useRef();
 
   useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
     if (katanaRef.current) {
-      // Perspective tilt: handle closer to camera, blade extending into depth
-      katanaRef.current.rotation.z = Math.sin(t * 0.7) * 0.06 - 0.45;
-      katanaRef.current.rotation.y = Math.cos(t * 0.5) * 0.08 + 0.35;
-      katanaRef.current.position.y = Math.sin(t * 1.2) * 0.08 - 0.1;
+      // Diagonal perspective: handle closer to camera (upper-right), blade extending into depth (lower-center/right)
+      katanaRef.current.rotation.z = Math.sin(t * 0.6) * 0.05 - 0.48;
+      katanaRef.current.rotation.y = Math.cos(t * 0.5) * 0.07 + 0.38;
+      katanaRef.current.position.y = Math.sin(t * 1.1) * 0.06 - 0.1;
       
-      // Controlled pointer tilt (±4deg max)
-      katanaRef.current.rotation.x = pointerY * 0.07;
-      katanaGroupRef.current.rotation.y = pointerX * 0.07;
+      // Pointer interaction influences ONLY the 3D artwork (±4deg max)
+      katanaRef.current.rotation.x = pointerY * 0.06;
+      katanaGroupRef.current.rotation.y = pointerX * 0.06;
     }
 
     if (ribbonRef.current) {
-      ribbonRef.current.rotation.z = Math.sin(t * 0.9) * 0.15 - 0.2;
-      ribbonRef.current.position.y = Math.cos(t * 1.1) * 0.06;
+      ribbonRef.current.rotation.z = Math.sin(t * 0.8) * 0.12 - 0.2;
+      ribbonRef.current.position.y = Math.cos(t * 1.0) * 0.05;
+    }
+
+    if (lightSweepRef.current) {
+      // Light sweep traveling across blade every few seconds
+      lightSweepRef.current.position.x = ((t * 1.5) % 4.5) - 2.25;
     }
   });
 
   const katanaGroupRef = useRef();
 
   return (
-    <group ref={katanaGroupRef} position={[1.8, -0.15, 1.3]} scale={[1.3, 1.3, 1.3]}>
+    <group ref={katanaGroupRef} position={[2.0, -0.15, 1.3]} scale={[1.35, 1.35, 1.35]}>
       {/* 3D Katana Assembly */}
       <group ref={katanaRef}>
-        {/* Blade Metallic Geometry */}
+        {/* Steel / Silver Blade Geometry */}
         <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
           <boxGeometry args={[4.5, 0.075, 0.018]} />
           <meshStandardMaterial
-            color="#EEEEEE"
-            metalness={0.97}
+            color="#ECECEC"
+            metalness={0.96}
             roughness={0.12}
             envMapIntensity={3.0}
           />
         </mesh>
 
-        {/* Warm Gold Edge Highlight */}
+        {/* Dark Edge & Antique Gold Accent */}
         <mesh position={[0, 0.038, 0.001]} rotation={[0, 0, Math.PI / 4]}>
           <boxGeometry args={[4.52, 0.018, 0.02]} />
           <meshBasicMaterial color="#FFD700" />
         </mesh>
 
-        {/* Tsuba (Handguard) */}
-        <mesh position={[-1.3, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-          <cylinderGeometry args={[0.24, 0.24, 0.035, 16]} />
-          <meshStandardMaterial color="#8C2924" metalness={0.85} roughness={0.25} />
+        {/* Blade Light Sweep Highlight */}
+        <mesh ref={lightSweepRef} position={[0, 0, 0.012]} rotation={[0, 0, Math.PI / 4]}>
+          <boxGeometry args={[0.5, 0.08, 0.005]} />
+          <meshBasicMaterial color="#FFF5E0" transparent opacity={0.85} />
         </mesh>
 
-        {/* Tsuka (Handle with Dark Wrap) */}
+        {/* Elegant Oval Tsuba (Handguard) */}
+        <mesh position={[-1.3, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+          <cylinderGeometry args={[0.24, 0.24, 0.035, 24]} />
+          <meshStandardMaterial color="#6B221F" metalness={0.85} roughness={0.25} />
+        </mesh>
+
+        {/* Tsuka (Handle with Dark Burgundy Wrap) */}
         <mesh position={[-1.9, 0, 0]} rotation={[0, 0, Math.PI / 4]}>
-          <cylinderGeometry args={[0.085, 0.085, 1.15, 12]} />
-          <meshStandardMaterial color="#2A1814" roughness={0.7} />
+          <cylinderGeometry args={[0.085, 0.085, 1.15, 16]} />
+          <meshStandardMaterial color="#2B1714" roughness={0.7} />
         </mesh>
       </group>
 
-      {/* Floating 3D Silk / Ink Ribbon Flowing Around Katana */}
+      {/* Floating 3D Silk / Ink Ribbon */}
       <group ref={ribbonRef} position={[0.2, 0.1, -0.2]}>
         <mesh rotation={[0.2, 0.4, -0.3]}>
           <torusGeometry args={[1.6, 0.03, 16, 100, Math.PI * 1.4]} />
           <meshStandardMaterial
-            color="#8C2924"
+            color="#4D1917"
             transparent
             opacity={0.65}
             roughness={0.4}
@@ -81,11 +93,11 @@ const RightCinematicKatana = ({ pointerX, pointerY }) => {
   );
 };
 
-// Sakura Petals Trajectory Arc
+// 3D Sakura Trajectory Arc (Passing behind and in front of Katana)
 const RightSakuraArc = () => {
-  const petals = Array.from({ length: 18 }, (_, i) => ({
+  const petals = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    left: `${48 + Math.random() * 45}%`,
+    left: `${52 + Math.random() * 42}%`,
     delay: Math.random() * 3.5,
     duration: 4.2 + Math.random() * 4,
     scale: 0.45 + Math.random() * 0.55,
@@ -98,8 +110,8 @@ const RightSakuraArc = () => {
           key={p.id}
           initial={{ y: '-10%', x: 0, rotate: 0, opacity: 0 }}
           animate={{
-            y: '680px',
-            x: [0, 40, -25, 35],
+            y: '740px',
+            x: [0, 35, -20, 30],
             rotate: [0, 260, 520],
             opacity: [0, 0.9, 0.9, 0],
           }}
@@ -127,7 +139,7 @@ const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
     >
       <ambientLight intensity={0.95} />
       <directionalLight position={[4, 7, 5]} intensity={2.2} color="#FFF5E0" castShadow />
-      <pointLight position={[-3, 2, 3]} intensity={1.4} color="#8C2924" />
+      <pointLight position={[-3, 2, 3]} intensity={1.4} color="#4D1917" />
       <pointLight position={[3, -2, 3]} intensity={1.8} color="#FFD700" />
 
       {/* Floating 3D Katana on Right Side */}
@@ -137,7 +149,7 @@ const Vertical3DScene = ({ mouseXVal, mouseYVal }) => {
 
       {/* Sparkles on Right Side */}
       <Sparkles count={32} scale={7} size={2.2} speed={0.4} color="#FFD700" opacity={0.7} />
-      <Sparkles count={22} scale={9} size={1.8} speed={0.5} color="#8C2924" opacity={0.6} />
+      <Sparkles count={22} scale={9} size={1.8} speed={0.5} color="#4D1917" opacity={0.6} />
     </Canvas>
   );
 };
@@ -149,8 +161,8 @@ export const SelectionTrial3D = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [2, -2]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -166,7 +178,7 @@ export const SelectionTrial3D = () => {
       id="ppt-round"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      style={{ height: 'clamp(560px, 72vh, 680px)' }}
+      style={{ height: 'clamp(680px, 78vh, 760px)' }}
       className="relative my-4 overflow-hidden select-none flex items-center justify-center"
     >
       {/* Hide site-wide BattleMapNav when hovering/scrolling this section via CSS */}
@@ -178,101 +190,111 @@ export const SelectionTrial3D = () => {
         }
       `}</style>
 
-      {/* 1. APPROVED BACKGROUND ARTWORK (Custom User Katana Torii Image) */}
+      {/* APPROVED BACKGROUND ARTWORK */}
       <SectionBackground
         src={backgrounds.trial}
         alt="Katana Torii Custom Environment"
         overlayOpacity={0.04}
       />
 
-      {/* INVISIBLE-LOOKING LOCAL CREAM READABILITY FIELD (STRICTLY ON LEFT 46%, NO VISIBLE EDGE) */}
+      {/* LOCAL CREAM READABILITY FIELD (LEFT CONTENT ONLY, NO VISIBLE EDGE) */}
       <div
-        className="absolute inset-y-0 left-0 w-full md:w-[58%] pointer-events-none z-1"
+        className="absolute inset-y-0 left-0 w-full md:w-[56%] pointer-events-none z-1"
         style={{
-          background: 'linear-gradient(to right, rgba(255,247,226,0.96) 0%, rgba(255,247,226,0.75) 28%, rgba(255,247,226,0.20) 48%, transparent 62%)',
+          background: 'linear-gradient(to right, rgba(255,248,230,0.96) 0%, rgba(255,248,230,0.75) 30%, rgba(255,248,230,0.18) 50%, transparent 64%)',
         }}
       />
 
-      {/* Right Side Sakura Arc */}
+      {/* Right Side Sakura Trajectory Arc */}
       <RightSakuraArc />
 
-      {/* 2. WebGL 3D Katana & Scene */}
+      {/* WebGL 3D Katana & Scene */}
       <Vertical3DScene mouseXVal={mouseX.get()} mouseYVal={mouseY.get()} />
 
-      {/* 3. MASTER GRID STAGE: LEFT 46% (INFORMATION) | RIGHT 54% (ARTWORK) */}
+      {/* MASTER GRID STAGE: LEFT 47% (TIMELINE + INFO) | RIGHT 53% (ARTWORK) */}
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative z-10 w-full h-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[46%_54%]"
+        className="relative z-10 w-full h-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[47%_53%]"
       >
         
         {/* ==================================================
-            LEFT 46% COLUMN: VERTICAL BLADE SPINE & INFORMATION
+            LEFT 47% COLUMN: VERTICAL BLADE TIMELINE & INFORMATION
         ================================================== */}
-        <div className="relative h-full flex flex-col justify-between py-6 sm:py-8 pl-[clamp(35px,6vw,100px)] pr-4 z-10">
+        <div className="relative h-full flex flex-col justify-between py-10 sm:py-12 pl-[clamp(35px,6vw,100px)] pr-4 z-10">
           
-          {/* VERTICAL BLADE SPINE (METALLIC KATANA EDGE RUNNING FROM ROUND 01 TO ROUND 02) */}
-          <div className="absolute top-8 bottom-8 left-[clamp(20px,3.5vw,60px)] w-[2.5px] pointer-events-none z-0">
-            <div className="w-full h-full bg-gradient-to-b from-[#541A18] via-[#B87333] via-[#FFD700] to-[#541A18] rounded-full shadow-[0_0_6px_rgba(184,115,51,0.7)]" />
-            {/* Specular Light Motion */}
+          {/* METALLIC KATANA SPINE TIMELINE (RUNNING DOWN LEFT FROM ROUND 01 NODE TO ROUND 02 NODE) */}
+          <div className="absolute top-12 bottom-12 left-[clamp(20px,3.5vw,55px)] w-[2.5px] pointer-events-none z-0">
+            {/* Round 01 Sword-Guard Diamond Node (Top) */}
+            <div className="absolute -top-3 -left-[5px] w-3.5 h-3.5 bg-[#4D1917] border-2 border-[#FFD700] transform rotate-45 shadow-[0_0_8px_#FFD700] z-10 flex items-center justify-center">
+              <div className="w-1 h-1 bg-[#FFF5E0]" />
+            </div>
+
+            {/* Metallic Katana Edge Spine */}
+            <div className="w-full h-full bg-gradient-to-b from-[#4D1917] via-[#FFD700] via-[#B87333] to-[#4D1917] rounded-full shadow-[0_0_6px_rgba(255,215,0,0.7)]" />
+            
+            {/* Warm Metallic Light Sweep Motion Traveling Down Timeline */}
             <motion.div
               initial={{ y: '0%' }}
               animate={{ y: ['0%', '100%', '0%'] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-transparent via-[#FFF5E0] to-transparent shadow-[0_0_8px_#FFF5E0]"
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-0 left-0 w-full h-14 bg-gradient-to-b from-transparent via-[#FFF5E0] to-transparent shadow-[0_0_10px_#FFF5E0]"
             />
+
+            {/* Round 02 Ceremonial Diamond Node (Bottom) */}
+            <div className="absolute -bottom-3 -left-[6px] w-4 h-4 bg-[#2B1714] border-2 border-[#FFD700] transform rotate-45 shadow-[0_0_10px_#FFD700] z-10 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 bg-[#4D1917]" />
+            </div>
           </div>
 
           {/* ==================================================
-              ROUND 01 — TOP HALF (TOP 8% → 43%)
+              ROUND 01 COMPOSITION (TOP 10% → 38%)
           ================================================== */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="relative text-left space-y-1 z-10"
+            className="relative text-left space-y-1.5 z-10 pt-2"
           >
-            {/* CUSTOM ROUND 01 INSIGNIA */}
+            {/* CUSTOM ROUND 01 EDITORIAL INSIGNIA */}
             <div className="relative flex items-center space-x-3 mb-1">
-              {/* Thin Diagonal Slash Crossing Behind 01 */}
-              <div className="absolute -left-2 top-1/2 w-16 h-0.5 bg-gradient-to-r from-[#8C2924] to-transparent transform -rotate-12 pointer-events-none z-0" />
+              <div className="absolute -left-2 top-1/2 w-16 h-0.5 bg-gradient-to-r from-[#4D1917] to-transparent transform -rotate-12 pointer-events-none z-0" />
               
-              <span className="font-display font-black text-5xl sm:text-6xl text-[#321814] drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)] relative z-10">
+              <span className="font-display font-black text-5xl sm:text-6xl text-[#2B1714] drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)] relative z-10">
                 01
               </span>
-              <div className="h-6 w-0.5 bg-[#8C2924]/60 z-10" />
-              <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-[#8C2924] leading-none uppercase z-10">
+              <div className="h-6 w-0.5 bg-[#4D1917]/70 z-10" />
+              <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-[#4D1917] leading-none uppercase z-10">
                 <span>ROUND</span>
                 <span>ONE</span>
               </div>
-              {/* RED JAPANESE SEAL SQUARE */}
-              <span className="w-4 h-4 rounded-sm bg-[#8C2924] border border-[#FFD700] text-[8px] flex items-center justify-center text-[#FFD700] font-black shadow-sm z-10">
+              <span className="w-4 h-4 rounded-sm bg-[#4D1917] border border-[#FFD700] text-[8px] flex items-center justify-center text-[#FFD700] font-black shadow-sm z-10">
                 印
               </span>
             </div>
 
             {/* MAIN TITLE — SERIF/DISPLAY TYPOGRAPHY 100% OPAQUE */}
             <h3
-              className="font-display font-extrabold text-3xl sm:text-5xl text-[#321814] tracking-tight leading-[0.95] opacity-100"
+              className="font-display font-extrabold text-3xl sm:text-5xl text-[#2B1714] tracking-tight leading-[0.95] opacity-100"
               style={{ textShadow: '0 2px 10px rgba(255,255,255,0.9)' }}
             >
               PPT <br />
-              <span className="text-[#8C2924]">SUBMISSION</span>
+              <span className="text-[#4D1917]">SUBMISSION</span>
             </h3>
 
             {/* EDITORIAL DATE DESIGN */}
-            <div className="pt-2 border-t border-[#8C2924]/40 flex items-center space-x-3">
+            <div className="pt-2 border-t border-[#4D1917]/40 flex items-center space-x-3">
               <div
-                className="font-display font-black text-4xl sm:text-6xl text-[#8C2924] tracking-tighter opacity-100"
+                className="font-display font-black text-4xl sm:text-6xl text-[#4D1917] tracking-tighter opacity-100"
                 style={{ textShadow: '0 2px 6px rgba(255,255,255,0.9)' }}
               >
                 10
               </div>
 
               <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest uppercase leading-none text-left">
-                <span className="text-[#8C2924] opacity-100 font-extrabold">DEADLINE</span>
+                <span className="text-[#4D1917] font-extrabold opacity-100">DEADLINE</span>
                 <span
-                  className="text-[#321814] text-xs sm:text-base font-extrabold mt-0.5 opacity-100"
+                  className="text-[#2B1714] text-xs sm:text-base font-extrabold mt-0.5 opacity-100"
                   style={{ textShadow: '0 1px 4px rgba(255,255,255,0.9)' }}
                 >
                   OCTOBER 2026
@@ -282,68 +304,80 @@ export const SelectionTrial3D = () => {
           </motion.div>
 
           {/* ==================================================
-              ROUND 02 — LOWER HALF (TOP 50% → 92%)
+              ATMOSPHERIC MIDDLE GAP (38% → 55%)
+              Controlled vertical transition space with light motion
+          ================================================== */}
+          <div className="relative my-2 py-4 pointer-events-none flex items-center space-x-2 pl-4 opacity-75">
+            <motion.div
+              animate={{ opacity: [0.4, 0.9, 0.4] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="text-[#FFD700] text-xs"
+            >
+              ✦
+            </motion.div>
+            <div className="h-[1px] w-12 bg-gradient-to-r from-[#4D1917]/40 to-transparent" />
+          </div>
+
+          {/* ==================================================
+              ROUND 02 COMPOSITION (TOP 55% → 92%)
           ================================================== */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.88 }}
-            className="relative text-left space-y-1 z-10"
+            transition={{ duration: 0.5, delay: 0.75 }}
+            className="relative text-left space-y-1.5 z-10 pl-2 sm:pl-4 pb-2"
           >
             {/* CUSTOM ROUND 02 SPECIAL INSIGNIA */}
             <div className="relative flex items-center space-x-3 mb-1">
-              {/* Circular Brush Stroke Partially Behind 02 */}
-              <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border border-[#8C2924]/30 pointer-events-none z-0" />
+              <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border border-[#4D1917]/30 pointer-events-none z-0" />
               
-              <span className="font-display font-black text-5xl sm:text-7xl text-[#8C2924] drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)] relative z-10">
+              <span className="font-display font-black text-5xl sm:text-7xl text-[#4D1917] drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)] relative z-10">
                 02
               </span>
               <div className="h-7 w-0.5 bg-[#FFD700]/80 z-10" />
-              <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-[#8C2924] leading-none uppercase z-10">
+              <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-[#4D1917] leading-none uppercase z-10">
                 <span>ROUND</span>
                 <span>FINALE</span>
               </div>
-              {/* TINY GOLD DIAMOND MARKER */}
               <span className="w-2.5 h-2.5 bg-[#FFD700] transform rotate-45 shadow-[0_0_6px_#FFD700] z-10" />
-              {/* RED JAPANESE SEAL SQUARE */}
-              <span className="w-4 h-4 rounded-sm bg-[#541A18] border border-[#FFD700] text-[8px] flex items-center justify-center text-[#FFD700] font-black shadow-sm z-10">
+              <span className="w-4 h-4 rounded-sm bg-[#2B1714] border border-[#FFD700] text-[8px] flex items-center justify-center text-[#FFD700] font-black shadow-sm z-10">
                 印
               </span>
             </div>
 
             {/* HERO MAIN TITLE — GRAND FINALE */}
             <h3
-              className="font-display font-extrabold text-3xl sm:text-6xl text-[#321814] tracking-tight leading-[0.95] opacity-100"
+              className="font-display font-extrabold text-3xl sm:text-6xl text-[#2B1714] tracking-tight leading-[0.95] opacity-100"
               style={{ textShadow: '0 2px 10px rgba(255,255,255,0.9)' }}
             >
               GRAND <br />
-              <span className="text-[#8C2924]">FINALE</span>
+              <span className="text-[#4D1917]">FINALE</span>
             </h3>
 
             {/* EDITORIAL DATE & METADATA LINE */}
-            <div className="space-y-1.5 pt-1.5 border-t border-[#8C2924]/40 flex flex-col items-start">
+            <div className="space-y-2 pt-2 border-t border-[#4D1917]/40 flex flex-col items-start">
               <div className="flex items-center space-x-3">
                 <div
-                  className="font-display font-black text-3xl sm:text-5xl text-[#8C2924] tracking-tighter opacity-100 flex items-center"
+                  className="font-display font-black text-3xl sm:text-5xl text-[#4D1917] tracking-tighter opacity-100 flex items-center"
                   style={{ textShadow: '0 2px 6px rgba(255,255,255,0.9)' }}
                 >
                   <span>24</span>
-                  <span className="text-[#321814] mx-1 font-mono text-xl sm:text-3xl">—</span>
+                  <span className="text-[#2B1714] mx-1 font-mono text-xl sm:text-3xl">—</span>
                   <span>25</span>
                 </div>
 
                 <div className="flex flex-col font-mono text-[10px] sm:text-[11px] font-black tracking-widest uppercase leading-none text-left">
-                  <span className="text-[#8C2924] opacity-100">OCTOBER</span>
-                  <span className="text-[#321814] mt-0.5 opacity-100">2026</span>
+                  <span className="text-[#4D1917] opacity-100">OCTOBER</span>
+                  <span className="text-[#2B1714] mt-0.5 opacity-100">2026</span>
                 </div>
               </div>
 
               {/* PURE METADATA LINE (NO BUTTON CARDS OR BOUNDED BOXES) */}
-              <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono font-black text-[#321814] pt-0.5">
+              <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono font-black text-[#2B1714] pt-0.5">
                 <span>NIT DELHI</span>
-                <span className="text-[#FFD700]">/</span>
-                <span className="text-[#8C2924]">36 HOURS</span>
+                <span className="text-[#FFD700]">◆</span>
+                <span className="text-[#4D1917]">36 HOURS</span>
               </div>
             </div>
 
@@ -352,10 +386,10 @@ export const SelectionTrial3D = () => {
         </div>
 
         {/* ==================================================
-            RIGHT 54% COLUMN: VISUAL ARTWORK & BREATHING SPACE
+            RIGHT 53% COLUMN: VISUAL ARTWORK & BREATHING SPACE
         ================================================== */}
         <div className="hidden md:block relative h-full pointer-events-none">
-          {/* Right side visual counterweight with background temple & 3D katana */}
+          {/* Right side visual artwork space for 3D Katana & Sakura Arc */}
         </div>
 
       </motion.div>
